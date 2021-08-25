@@ -6,11 +6,10 @@ import (
 	"gorm.io/gorm"
 )
 
-type Payment struct {
+type Shipment struct {
 	gorm.Model
 	ID      uint
-	Type    string
-	Allowed bool
+	OrderID uint
 	Time    time.Time
-	Paid    bool
+	Order   Order
 }
