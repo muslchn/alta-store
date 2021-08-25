@@ -8,7 +8,7 @@ import (
 
 type Customers struct {
 	gorm.Model
-	CustomerID  int       `json:"id" form:"id"`
+	CustomerID  int       `json:"CustomerId" form:"CustomerId"`
 	FirstName   string    `json:"firstName" form:"firstName"`
 	LastName    string    `json:"lastName" form:"lastName"`
 	Username    string    `json:"username" form:"username"`
