@@ -8,7 +8,7 @@ import (
 
 type Shipment struct {
 	gorm.Model
-	ID      uint
+	ID      uint `gorm:"primaryKey"`
 	OrderID uint
 	Time    time.Time
 	Order   Order

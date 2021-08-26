@@ -8,7 +8,7 @@ import (
 
 type OrderDetail struct {
 	gorm.Model
-	ID        uint
+	ID        uint `gorm:"primaryKey"`
 	OrderID   uint
 	ProductID uint
 	Price     uint

@@ -8,7 +8,7 @@ import (
 
 type Cart struct {
 	gorm.Model
-	ID         uint
+	ID         uint `gorm:"primaryKey"`
 	CustomerID uint
 	ProductID  uint
 	Quantity   uint

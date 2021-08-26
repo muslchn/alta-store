@@ -1,24 +1,21 @@
 package models
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
 type Customer struct {
 	gorm.Model
-	ID          uint
-	FirstName   string
-	LastName    string
-	Username    string
-	Password    string
-	Token       string
-	Address     string
-	City        string
-	State       string
-	PostalCode  uint
-	Phone       int
-	Email       string
-	TimeEntered time.Time
+	ID        uint   `gorm:"primaryKey"`
+	FirstName string `json:"firstName" form:"firstName"`
+	LastName  string `json:"lastName" form:"lastName"`
+	Username  string `json:"username" form:"username"`
+	Password  string `json:"password" form:"password"`
+	// Token  string
+	Address    string `json:"address" form:"address"`
+	City       string `json:"city" form:"city"`
+	State      string `json:"state" form:"state"`
+	PostalCode uint   `json:"postalCode" form:"postalCode"`
+	Phone      int    `json:"phone" form:"phone"`
+	Email      string `json:"email" form:"email"`
 }
