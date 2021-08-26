@@ -5,12 +5,12 @@ import (
 	"alta-store/models"
 )
 
-func GetCustomers() (interface{}, error) {
-	var customers []models.Customer
+func CreateCustomer() (interface{}, error) {
+	var customer models.Customer
 
-	if err := config.DB.Find(&customers).Error; err != nil {
+	if err := config.DB.Find(&customer).Error; err != nil {
 		return nil, err
 	}
 
-	return customers, nil
+	return customer, nil
 }
