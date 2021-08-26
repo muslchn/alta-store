@@ -8,7 +8,7 @@ import (
 )
 
 func RegisterController(c echo.Context) error {
-	customer, err := database.CreateCustomer()
+	customer, err := database.Register()
 	c.Bind(&customer)
 
 	if err != nil {

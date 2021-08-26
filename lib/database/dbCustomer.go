@@ -5,7 +5,7 @@ import (
 	"alta-store/models"
 )
 
-func CreateCustomer() (interface{}, error) {
+func Register() (interface{}, error) {
 	var customer models.Customer
 
 	if err := config.DB.Find(&customer).Error; err != nil {
