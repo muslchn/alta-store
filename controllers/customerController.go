@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo"
 )
 
-func CreateCustomerController(c echo.Context) error {
+func RegisterController(c echo.Context) error {
 	customer, err := database.CreateCustomer()
 	c.Bind(&customer)
 

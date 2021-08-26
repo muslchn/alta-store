@@ -10,7 +10,7 @@ func New() *echo.Echo {
 	e := echo.New()
 
 	e.GET("/products", controllers.GetProductsController)
-	e.POST("/customers", controllers.CreateCustomerController)
+	e.POST("/customers", controllers.RegisterController)
 
 	return e
 }
