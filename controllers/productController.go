@@ -3,6 +3,7 @@ package controllers
 import (
 	"alta-store/lib/database"
 	"net/http"
+	"strconv"
 
 	"github.com/labstack/echo"
 )
@@ -13,6 +14,23 @@ func GetProductsController(c echo.Context) error {
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":   "success",
+		"products": products,
+	})
+}
+
+func GetProductsByCategory(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+
+	products, err := database.GetProductsByCategory(id)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	//id, _ := strconv.Atoi(c.Param("id"))
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":   "success",
