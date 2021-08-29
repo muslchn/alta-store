@@ -5,10 +5,20 @@ import (
 	"alta-store/models"
 )
 
-func AddToCart(id uint) (interface{}, error) {
-	product := models.Cart{ProductID: id}
+func GetCart() (interface{}, error) {
+	var products []models.Cart
 
-	if err := config.DB.Create(&product).Error; err != nil {
+	if err := config.DB.Find(&products).Error; err != nil {
+		return nil, err
+	}
+
+	return products, nil
+}
+
+func AddToCart(id uint) (interface{}, error) {
+	product := models.Cart{}
+
+	if err := config.DB.Create(&models.Cart{Product: models.Product{ID: id}}).Error; err != nil {
 		return nil, err
 	}
 
