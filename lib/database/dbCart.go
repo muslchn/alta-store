@@ -8,7 +8,7 @@ import (
 func GetCart() (interface{}, error) {
 	var products []models.Cart
 
-	if err := config.DB.Find(&products).Error; err != nil {
+	if err := config.DB.Preload("Product").Find(&products).Error; err != nil {
 		return nil, err
 	}
 

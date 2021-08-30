@@ -11,7 +11,7 @@ func New() *echo.Echo {
 
 	e.GET("/products", controllers.GetProductsController)
 	// e.POST("/customers", controllers.RegisterController)
-	e.GET("/products/:id", controllers.GetProductsByCategory)
+	e.GET("/products/:categoryId", controllers.GetProductsByCategory)
 	e.GET("/cart", controllers.GetCartController)
 	e.POST("/cart/:id", controllers.AddToCart)
 

@@ -6,16 +6,14 @@ import (
 
 type Customer struct {
 	gorm.Model
-	ID        uint   `gorm:"primaryKey"`
-	FirstName string `json:"firstName" form:"firstName"`
-	LastName  string `json:"lastName" form:"lastName"`
-	Username  string `json:"username" form:"username"`
-	Password  string `json:"password" form:"password"`
-	// Token  string
-	Address    string `json:"address" form:"address"`
-	City       string `json:"city" form:"city"`
-	State      string `json:"state" form:"state"`
-	PostalCode uint   `json:"postalCode" form:"postalCode"`
-	Phone      int    `json:"phone" form:"phone"`
-	Email      string `json:"email" form:"email"`
+	FirstName  string `gorm:"size:255;not null" json:"firstName" form:"firstName"`
+	LastName   string `gorm:"size:255" json:"lastName" form:"lastName"`
+	Username   string `gorm:"size:255;not null;unique" json:"username" form:"username"`
+	Email      string `gorm:"size:100;not null;unique" json:"email" form:"email"`
+	Password   string `gorm:"size:100;not null" json:"password" form:"password"`
+	Phone      string `gorm:"size:15;not null" json:"phone" form:"phone"`
+	Address    string `gorm:"size:255;not null" json:"address" form:"address"`
+	City       string `gorm:"size:100;not null" json:"city" form:"city"`
+	State      string `gorm:"size:100;not null" json:"state" form:"state"`
+	PostalCode string `gorm:"5;not null" json:"postalCode" form:"postalCode"`
 }

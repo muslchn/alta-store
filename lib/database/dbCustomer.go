@@ -5,10 +5,12 @@ import (
 	"alta-store/models"
 )
 
-func Register() (interface{}, error) {
+func Register(getCustomer models.Customer) (interface{}, error) {
 	var customer models.Customer
 
-	if err := config.DB.Find(&customer).Error; err != nil {
+	customer = getCustomer
+
+	if err := config.DB.Create(&customer).Error; err != nil {
 		return nil, err
 	}
 

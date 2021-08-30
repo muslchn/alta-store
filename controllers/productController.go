@@ -22,9 +22,9 @@ func GetProductsController(c echo.Context) error {
 }
 
 func GetProductsByCategory(c echo.Context) error {
-	id, _ := strconv.Atoi(c.Param("id"))
+	categoryId, _ := strconv.Atoi(c.Param("categoryId"))
 
-	products, err := database.GetProductsByCategory(id)
+	products, err := database.GetProductsByCategory(categoryId)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
