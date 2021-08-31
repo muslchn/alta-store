@@ -33,7 +33,7 @@ func RegisterController(c echo.Context) error {
 	customer.State = state
 	customer.PostalCode = postalCode
 
-	register, err := database.Register(customer)
+	register, err := database.Register(&customer)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
