@@ -16,3 +16,12 @@ func Register(getCustomer models.Customer) (interface{}, error) {
 
 	return customer, nil
 }
+
+func GetDetailCustomers(customerId int) (interface{}, error) {
+	var customer models.Customer
+
+	if err := config.DB.Find(&customer, customerId).Error; err != nil {
+		return nil, err
+	}
+	return customer, nil
+}
