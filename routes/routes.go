@@ -3,7 +3,7 @@ package routes
 import (
 	"alta-store/controllers"
 
-	"github.com/labstack/echo"
+	"github.com/labstack/echo/v4"
 )
 
 func New() *echo.Echo {
