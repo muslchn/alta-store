@@ -6,6 +6,5 @@ import (
 
 type Category struct {
 	gorm.Model
-	ID   uint `gorm:"primaryKey"`
 	Name string
 }
