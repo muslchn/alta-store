@@ -16,4 +16,5 @@ type Customer struct {
 	City       string `gorm:"size:100;not null" json:"city" form:"city"`
 	State      string `gorm:"size:100;not null" json:"state" form:"state"`
 	PostalCode string `gorm:"5;not null" json:"postalCode" form:"postalCode"`
+	Token      string `json:"token" form:"token"`
 }
