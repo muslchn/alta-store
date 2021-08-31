@@ -11,6 +11,10 @@ import (
 func New() *echo.Echo {
 	e := echo.New()
 
+	// Welcome
+	e.GET("", controllers.WelcomeController)
+	e.GET("/welcome", controllers.WelcomeController)
+
 	e.GET("/products", controllers.GetProductsController)
 	// e.POST("/customers", controllers.RegisterController)
 	e.GET("/products/:categoryId", controllers.GetProductsByCategory)
