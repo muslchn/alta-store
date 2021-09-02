@@ -11,5 +11,5 @@ type Shipment struct {
 	ID      uint `gorm:"primaryKey"`
 	OrderID uint
 	Time    time.Time
-	Order   Order
+	Order   Orders
 }

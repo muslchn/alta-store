@@ -2,7 +2,7 @@ package models
 
 import "gorm.io/gorm"
 
-type Product struct {
+type Products struct {
 	gorm.Model
 	ID uint `gorm:"primaryKey" json:"id"`
 	// CategoryID  uint `json:"categoryId"`

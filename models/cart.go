@@ -15,5 +15,5 @@ type Cart struct {
 	Cost      uint
 	TimeAdded time.Time
 	// Customer  Customer `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Product Product `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Products Products `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }

@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Customer struct {
+type Customers struct {
 	gorm.Model
 	FirstName  string `gorm:"size:255;not null" json:"firstName" form:"firstName"`
 	LastName   string `gorm:"size:255" json:"lastName" form:"lastName"`

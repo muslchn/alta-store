@@ -39,10 +39,10 @@ func InitDB() {
 func InitMigrate() {
 	DB.AutoMigrate(&models.Cart{})
 	DB.AutoMigrate(&models.Category{})
-	DB.AutoMigrate(&models.Customer{})
-	DB.AutoMigrate(&models.OrderDetail{})
-	DB.AutoMigrate(&models.Order{})
+	DB.AutoMigrate(&models.Customers{})
+	DB.AutoMigrate(&models.OrderDetails{})
+	DB.AutoMigrate(&models.Orders{})
 	DB.AutoMigrate(&models.Payment{})
-	DB.AutoMigrate(&models.Product{})
+	DB.AutoMigrate(&models.Products{})
 	DB.AutoMigrate(&models.Shipment{})
 }
