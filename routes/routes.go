@@ -20,6 +20,8 @@ func New() *echo.Echo {
 	e.GET("/products/:categoryId", controllers.GetProductsByCategoryController)
 
 	// Product Categories
+	e.GET("/category", controllers.GetCategoryController)
+	e.GET("/category/:id", controllers.GetCategoryByIdController)
 
 	// Customer Authentication
 	e.POST("/register", controllers.RegisterController)
