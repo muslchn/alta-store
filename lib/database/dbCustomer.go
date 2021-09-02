@@ -7,9 +7,9 @@ import (
 )
 
 func Register(getCustomer *models.Customers) (interface{}, error) {
-	var customer models.Customers
+	// var customer models.Customers
 
-	customer = *getCustomer
+	customer := *getCustomer
 
 	if err := config.DB.Create(&customer).Error; err != nil {
 		return nil, err
