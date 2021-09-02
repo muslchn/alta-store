@@ -21,7 +21,7 @@ func GetProductsController(c echo.Context) error {
 	})
 }
 
-func GetProductsByCategory(c echo.Context) error {
+func GetProductsByCategoryController(c echo.Context) error {
 	categoryId, _ := strconv.Atoi(c.Param("categoryId"))
 
 	products, err := database.GetProductsByCategory(categoryId)

@@ -17,7 +17,7 @@ func New() *echo.Echo {
 
 	// Products
 	e.GET("/products", controllers.GetProductsController)
-	e.GET("/products/:categoryId", controllers.GetProductsByCategory)
+	e.GET("/products/:categoryId", controllers.GetProductsByCategoryController)
 
 	// Product Categories
 
