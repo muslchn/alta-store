@@ -14,3 +14,13 @@ func GetCategory() (interface{}, error) {
 
 	return category, nil
 }
+
+func GetCategoryById(id int) (interface{}, error) {
+	var category []models.Category
+
+	if err := config.DB.Where("id = ?", id).Find(&category).Error; err != nil {
+		return nil, err
+	}
+
+	return category, nil
+}
