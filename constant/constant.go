@@ -1,3 +1,3 @@
-package constants
+package constant
 
 const SECRET_JWT = "altastore63"

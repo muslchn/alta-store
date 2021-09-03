@@ -1,8 +1,8 @@
-package controllers
+package controller
 
 import (
 	"alta-store/lib/database"
-	"alta-store/models"
+	"alta-store/model"
 	"net/http"
 	"strconv"
 
@@ -22,7 +22,7 @@ func RegisterController(c echo.Context) error {
 	state := c.FormValue("state")
 	postalCode := c.FormValue("postalCode")
 
-	var customer models.Customer
+	var customer model.Customer
 	customer.FirstName = firstName
 	customer.LastName = lastName
 	customer.Username = username
@@ -47,7 +47,7 @@ func RegisterController(c echo.Context) error {
 }
 
 func LoginCustomersController(c echo.Context) error {
-	customer := models.Customer{}
+	customer := model.Customer{}
 	c.Bind(&customer)
 
 	customers, err := database.LoginCustomers(&customer)

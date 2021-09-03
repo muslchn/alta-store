@@ -1,7 +1,7 @@
-package middlewares
+package middleware
 
 import (
-	"alta-store/constants"
+	constants "alta-store/constant"
 	"time"
 
 	"github.com/golang-jwt/jwt"

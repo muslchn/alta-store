@@ -1,4 +1,4 @@
-package models
+package model
 
 import (
 	"time"
@@ -6,10 +6,11 @@ import (
 	"gorm.io/gorm"
 )
 
-type Shipment struct {
+type Payment struct {
 	gorm.Model
 	ID      uint `gorm:"primaryKey"`
-	OrderID uint
+	Type    string
+	Allowed bool
 	Time    time.Time
-	Order   Order
+	Paid    bool
 }

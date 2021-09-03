@@ -1,7 +1,7 @@
 package config
 
 import (
-	"alta-store/models"
+	"alta-store/model"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -37,12 +37,12 @@ func InitDB() {
 }
 
 func InitMigrate() {
-	DB.AutoMigrate(&models.Cart{})
-	DB.AutoMigrate(&models.Category{})
-	DB.AutoMigrate(&models.Customer{})
-	DB.AutoMigrate(&models.OrderDetail{})
-	DB.AutoMigrate(&models.Order{})
-	DB.AutoMigrate(&models.Payment{})
-	DB.AutoMigrate(&models.Product{})
-	DB.AutoMigrate(&models.Shipment{})
+	DB.AutoMigrate(&model.Cart{})
+	DB.AutoMigrate(&model.Category{})
+	DB.AutoMigrate(&model.Customer{})
+	DB.AutoMigrate(&model.OrderDetail{})
+	DB.AutoMigrate(&model.Order{})
+	DB.AutoMigrate(&model.Payment{})
+	DB.AutoMigrate(&model.Product{})
+	DB.AutoMigrate(&model.Shipment{})
 }

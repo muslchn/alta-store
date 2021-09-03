@@ -2,11 +2,11 @@ package database
 
 import (
 	"alta-store/config"
-	"alta-store/models"
+	"alta-store/model"
 )
 
 func GetProducts() (interface{}, error) {
-	var products []models.Product
+	var products []model.Product
 
 	if err := config.DB.Find(&products).Error; err != nil {
 		return nil, err
@@ -16,7 +16,7 @@ func GetProducts() (interface{}, error) {
 }
 
 func GetProductsByCategory(id int) (interface{}, error) {
-	var products []models.Product
+	var products []model.Product
 
 	if err := config.DB.Where("category_id  = ?", id).Find(&products).Error; err != nil {
 		return nil, err

@@ -2,11 +2,11 @@ package database
 
 import (
 	"alta-store/config"
-	"alta-store/models"
+	"alta-store/model"
 )
 
 func GetCart() (interface{}, error) {
-	var products []models.Cart
+	var products []model.Cart
 
 	if err := config.DB.Preload("Product").Find(&products).Error; err != nil {
 		return nil, err
@@ -16,9 +16,9 @@ func GetCart() (interface{}, error) {
 }
 
 func AddToCart(id uint) (interface{}, error) {
-	product := models.Cart{}
+	product := model.Cart{}
 
-	if err := config.DB.Create(&models.CartItem{Product: models.Product{ID: id}}).Error; err != nil {
+	if err := config.DB.Create(&model.CartItem{Product: model.Product{ID: id}}).Error; err != nil {
 		return nil, err
 	}
 
