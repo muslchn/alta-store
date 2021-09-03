@@ -35,7 +35,7 @@ func New() *echo.Echo {
 	r.GET("/customers/:id", controllers.GetCustomerDetailController)
 
 	// Cart
-	r.POST("/cart/:id", controllers.AddToCart)
+	r.POST("/cart/:id", controllers.AddToCartController)
 	r.GET("/cart", controllers.GetCartController)
 
 	// Checkout

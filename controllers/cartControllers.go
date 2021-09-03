@@ -21,7 +21,7 @@ func GetCartController(c echo.Context) error {
 	})
 }
 
-func AddToCart(c echo.Context) error {
+func AddToCartController(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	products, err := database.AddToCart(uint(id))
