@@ -19,7 +19,7 @@ func New() *echo.Echo {
 	e.GET("/products", controllers.GetProductsController)
 	e.GET("/products/:categoryId", controllers.GetProductsByCategoryController)
 
-	// Product Categories
+	// Category
 	e.GET("/category", controllers.GetCategoryController)
 	e.GET("/category/:id", controllers.GetCategoryByIdController)
 
