@@ -1,19 +1,21 @@
 package models
 
 import (
-	"time"
-
 	"gorm.io/gorm"
 )
 
 type Cart struct {
 	gorm.Model
-	ID uint `gorm:"primaryKey"`
-	// CustomerID uint
-	ProductID uint
-	Quantity  uint
-	Cost      uint
-	TimeAdded time.Time
-	// Customer  Customer `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
-	Products Products `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	CustomersID uint
+	Customers   Customers
+}
+
+type CartItems struct {
+	gorm.Model
+	CartID     uint
+	ProductsID uint
+	Qty        uint
+	Cost       uint
+	Cart       Cart
+	Products   Products
 }
