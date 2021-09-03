@@ -32,7 +32,7 @@ func New() *echo.Echo {
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 
 	// Customer Auth
-	r.GET("/customers/:id", controllers.GetCustomerDetailControllers)
+	r.GET("/customers/:id", controllers.GetCustomerDetailController)
 
 	// Cart
 	r.POST("/carts/:id", controllers.AddToCart)

@@ -60,7 +60,7 @@ func LoginCustomersController(c echo.Context) error {
 	})
 }
 
-func GetCustomerDetailControllers(c echo.Context) error {
+func GetCustomerDetailController(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if err != nil {
