@@ -2,7 +2,7 @@ package main
 
 import (
 	"alta-store/config"
-	"alta-store/routes"
+	routes "alta-store/route"
 )
 
 func main() {

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"alta-store/constants"
-	"alta-store/controllers"
+	constants "alta-store/constant"
+	controllers "alta-store/controller"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"

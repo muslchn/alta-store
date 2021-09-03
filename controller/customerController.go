@@ -22,7 +22,7 @@ func RegisterController(c echo.Context) error {
 	state := c.FormValue("state")
 	postalCode := c.FormValue("postalCode")
 
-	var customer models.Customers
+	var customer models.Customer
 	customer.FirstName = firstName
 	customer.LastName = lastName
 	customer.Username = username
@@ -47,7 +47,7 @@ func RegisterController(c echo.Context) error {
 }
 
 func LoginCustomersController(c echo.Context) error {
-	customer := models.Customers{}
+	customer := models.Customer{}
 	c.Bind(&customer)
 
 	customers, err := database.LoginCustomers(&customer)

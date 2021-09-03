@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type Orders struct {
+type Order struct {
 	gorm.Model
 	ID             uint `gorm:"primaryKey"`
 	CustomerID     uint
@@ -16,6 +16,6 @@ type Orders struct {
 	TransactStatus string
 	Fulfilled      bool
 	Deleted        bool
-	Customers      Customers
+	Customer       Customer
 	Payment        Payment
 }

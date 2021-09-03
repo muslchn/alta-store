@@ -6,7 +6,7 @@ import (
 	"alta-store/models"
 )
 
-func Register(getCustomer *models.Customers) (interface{}, error) {
+func Register(getCustomer *models.Customer) (interface{}, error) {
 	// var customer models.Customers
 
 	customer := *getCustomer
@@ -19,7 +19,7 @@ func Register(getCustomer *models.Customers) (interface{}, error) {
 }
 
 func GetDetailCustomers(customerId int) (interface{}, error) {
-	var customer models.Customers
+	var customer models.Customer
 
 	if err := config.DB.Find(&customer, customerId).Error; err != nil {
 		return nil, err
@@ -27,7 +27,7 @@ func GetDetailCustomers(customerId int) (interface{}, error) {
 	return customer, nil
 }
 
-func LoginCustomers(customer *models.Customers) (interface{}, error) {
+func LoginCustomers(customer *models.Customer) (interface{}, error) {
 
 	var err error
 	if err = config.DB.Where("email = ? AND password = ?", customer.Email, customer.Password).First(customer).Error; err != nil {

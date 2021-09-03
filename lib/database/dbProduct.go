@@ -6,7 +6,7 @@ import (
 )
 
 func GetProducts() (interface{}, error) {
-	var products []models.Products
+	var products []models.Product
 
 	if err := config.DB.Find(&products).Error; err != nil {
 		return nil, err
@@ -16,7 +16,7 @@ func GetProducts() (interface{}, error) {
 }
 
 func GetProductsByCategory(id int) (interface{}, error) {
-	var products []models.Products
+	var products []models.Product
 
 	if err := config.DB.Where("category_id  = ?", id).Find(&products).Error; err != nil {
 		return nil, err

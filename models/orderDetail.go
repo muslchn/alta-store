@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type OrderDetails struct {
+type OrderDetail struct {
 	gorm.Model
 	ID        uint `gorm:"primaryKey"`
 	OrderID   uint
@@ -18,6 +18,6 @@ type OrderDetails struct {
 	Color     string
 	Fulfilled bool
 	BillTime  time.Time
-	Order     Orders
-	Products  Products
+	Order     Order
+	Product   Product
 }

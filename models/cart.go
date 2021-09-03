@@ -6,16 +6,16 @@ import (
 
 type Cart struct {
 	gorm.Model
-	CustomersID uint
-	Customers   Customers
+	CustomerID uint
+	Customer   Customer
 }
 
-type CartItems struct {
+type CartItem struct {
 	gorm.Model
-	CartID     uint
-	ProductsID uint
-	Qty        uint
-	Cost       uint
-	Cart       Cart
-	Products   Products
+	CartID    uint
+	ProductID uint
+	Qty       uint
+	Cost      uint
+	Cart      Cart
+	Product   Product
 }

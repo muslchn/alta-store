@@ -18,7 +18,7 @@ func GetCart() (interface{}, error) {
 func AddToCart(id uint) (interface{}, error) {
 	product := models.Cart{}
 
-	if err := config.DB.Create(&models.CartItems{Products: models.Products{ID: id}}).Error; err != nil {
+	if err := config.DB.Create(&models.CartItem{Product: models.Product{ID: id}}).Error; err != nil {
 		return nil, err
 	}
 
