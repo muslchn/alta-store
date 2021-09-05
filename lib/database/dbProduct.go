@@ -25,10 +25,25 @@ func GetProductsByCategory(id int) (interface{}, error) {
 	return products, nil
 }
 
-/* func AddProduct() (interface{}, error) {
-	var products []models.Product
+func GetProductById(id uint) (uint, uint, error) {
+	product := model.Product{}
+	query := config.DB.Where("id = ?", id).Find(&product)
 
-	if err := config.DB.Select(); err != nil {
-		return nil, err
+	if err := query.Error; err != nil {
+		return 0, 0, err
 	}
-} */
+
+	if query.RowsAffected == 0 {
+		return 0, 0, nil
+	}
+
+	return product.Stock, product.Price, nil
+}
+
+func UpdateProductStockById(id, stock, qty uint) {
+	product := model.Product{
+		Stock: stock - qty,
+	}
+
+	config.DB.Where("product_id = ?", id).Updates(&product)
+}

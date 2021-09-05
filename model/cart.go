@@ -14,8 +14,9 @@ type CartItem struct {
 	gorm.Model
 	CartID    uint
 	ProductID uint
+	Price     uint
 	Qty       uint
-	Cost      uint
+	Total     uint
 	Cart      Cart
 	Product   Product
 }
