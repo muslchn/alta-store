@@ -6,14 +6,15 @@ import (
 	"strconv"
 )
 
-func GetCart() (interface{}, error) {
-	var products []model.Cart
+func GetCart(customerId uint) (interface{}, error) {
+	var cartItem []model.CartItem
+	cartId := CartCheck(customerId)
 
-	if err := config.DB.Preload("Product").Find(&products).Error; err != nil {
+	if err := config.DB.Where("cart_id = ?", cartId).Find(&cartItem).Error; err != nil {
 		return nil, err
 	}
 
-	return products, nil
+	return cartItem, nil
 }
 
 func CartCheck(customerId uint) uint {

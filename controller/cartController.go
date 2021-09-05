@@ -9,7 +9,8 @@ import (
 )
 
 func GetCartController(c echo.Context) error {
-	products, err := database.GetCart()
+	customerId := middleware.ExtractTokenCustomerId(c)
+	cart, err := database.GetCart(uint(customerId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
@@ -17,7 +18,7 @@ func GetCartController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":   "success",
-		"products": products,
+		"products": cart,
 	})
 }
 
