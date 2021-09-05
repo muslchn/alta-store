@@ -2,6 +2,7 @@ package controller
 
 import (
 	"alta-store/lib/database"
+	"alta-store/middleware"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -20,19 +21,19 @@ func GetCartController(c echo.Context) error {
 	})
 }
 
-// func AddToCartController(c echo.Context) error {
-// 	id, _ := strconv.Atoi(c.Param("id"))
+func AddCartItemController(c echo.Context) error {
+	customerId := middleware.ExtractTokenCustomerId(c)
+	payloadData := make(map[string]string)
+	payloadData["product_id"] = c.FormValue("product_id")
+	payloadData["qty"] = c.FormValue("qty")
+	cartItem, err := database.AddCartItem(payloadData, uint(customerId))
 
-// 	products, err := database.AddToCart(uint(id))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
 
-// 	if err != nil {
-// 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
-// 	}
-
-// 	//id, _ := strconv.Atoi(c.Param("id"))
-
-// 	return c.JSON(http.StatusOK, map[string]interface{}{
-// 		"status":   "success",
-// 		"products": products,
-// 	})
-// }
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status": "success",
+		"item":   cartItem,
+	})
+}
