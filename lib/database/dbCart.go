@@ -15,12 +15,17 @@ func GetCart() (interface{}, error) {
 	return products, nil
 }
 
-func AddToCart(id uint) (interface{}, error) {
-	product := model.Cart{}
-
-	if err := config.DB.Create(&model.CartItem{Product: model.Product{ID: id}}).Error; err != nil {
-		return nil, err
+func CartCheck(customerId uint) uint {
+	cart := model.Cart{
+		CustomerID: customerId,
 	}
 
-	return product, nil
+	query := config.DB.Where("customer_id = ?", customerId).Find(&cart)
+
+	if query.RowsAffected == 0 {
+		config.DB.Create(&cart)
+		CartCheck(customerId)
+	}
+
+	return cart.ID
 }
