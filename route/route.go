@@ -2,7 +2,7 @@ package route
 
 import (
 	constants "alta-store/constant"
-	controllers "alta-store/controller"
+	"alta-store/controller"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -12,31 +12,31 @@ func New() *echo.Echo {
 	e := echo.New()
 
 	// Welcome
-	e.GET("", controllers.WelcomeController)
-	e.GET("/welcome", controllers.WelcomeController)
+	e.GET("", controller.WelcomeController)
+	e.GET("/welcome", controller.WelcomeController)
 
 	// Products
-	e.GET("/products", controllers.GetProductsController)
-	e.GET("/products/:categoryId", controllers.GetProductsByCategoryController)
+	e.GET("/products", controller.GetProductsController)
+	e.GET("/products/:categoryId", controller.GetProductsByCategoryController)
 
 	// Category
-	e.GET("/category", controllers.GetCategoryController)
-	e.GET("/category/:id", controllers.GetCategoryByIdController)
+	e.GET("/category", controller.GetCategoryController)
+	e.GET("/category/:id", controller.GetCategoryByIdController)
 
 	// Customer Authentication
-	e.POST("/register", controllers.RegisterController)
-	e.POST("/login", controllers.LoginCustomersController)
+	e.POST("/register", controller.RegisterController)
+	e.POST("/login", controller.LoginCustomersController)
 
 	// JWT Group
 	r := e.Group("")
 	r.Use(middleware.JWT([]byte(constants.SECRET_JWT)))
 
 	// Customer Auth
-	r.GET("/customers/:id", controllers.GetCustomerDetailController)
+	r.GET("/customers/:id", controller.GetCustomerDetailController)
 
 	// Cart
-	// r.POST("/cart/:id", controllers.AddToCartController)
-	r.GET("/cart", controllers.GetCartController)
+	r.POST("/carts", controller.AddCartItemController)
+	r.GET("/cart", controller.GetCartController)
 
 	// Checkout
 
