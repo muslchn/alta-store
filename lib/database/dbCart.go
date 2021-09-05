@@ -63,3 +63,13 @@ func AddCartItem(payloadData map[string]string, customerId uint) (interface{}, e
 
 	return cartItem, nil
 }
+
+func DeleteCartItem(id uint) (interface{}, error) {
+	var cartItem []model.CartItem
+
+	if err := config.DB.Where("id = ?", id).Delete(&cartItem).Error; err != nil {
+		return nil, err
+	}
+
+	return true, nil
+}
