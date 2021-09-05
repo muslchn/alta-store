@@ -64,6 +64,24 @@ func AddCartItem(payloadData map[string]string, customerId uint) (interface{}, e
 	return cartItem, nil
 }
 
+func ValidateCartItem(cartItemId, customerId uint) (bool, map[string]uint, error) {
+	cartId := CartCheck(customerId)
+	cartItem := model.CartItem{}
+	query := config.DB.Where("id = ?", cartItemId).Find(&cartItem)
+	returnItem := make(map[string]uint)
+
+	if query.Error != nil {
+		return false, returnItem, query.Error
+	} else if cartItem.ID != cartId {
+		return false, returnItem, nil
+	}
+
+	returnItem["product_id"] = cartItem.ProductID
+	returnItem["qty"] = cartItem.Qty
+
+	return true, returnItem, nil
+}
+
 func DeleteCartItem(id uint) (interface{}, error) {
 	var cartItem []model.CartItem
 
