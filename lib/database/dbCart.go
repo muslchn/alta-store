@@ -20,9 +20,10 @@ func GetCart(customerId uint) (interface{}, error) {
 func CartCheck(customerId uint) uint {
 	cart := model.Cart{
 		CustomerID: customerId,
+		Checkout:   false,
 	}
 
-	query := config.DB.Where("customer_id = ?", customerId).Find(&cart)
+	query := config.DB.Where("customer_id = ? AND checkout = false", customerId).Find(&cart)
 
 	if query.RowsAffected == 0 {
 		config.DB.Create(&cart)

@@ -36,7 +36,7 @@ func New() *echo.Echo {
 
 	// Cart
 	r.POST("/carts", controller.AddCartItemController)
-	r.GET("/cart", controller.GetCartController)
+	r.GET("/carts", controller.GetCartController)
 	r.DELETE("/carts/:id", controller.DeleteCartItemController)
 
 	// Checkout

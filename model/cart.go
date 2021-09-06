@@ -7,6 +7,7 @@ import (
 type Cart struct {
 	gorm.Model
 	CustomerID uint
+	Checkout   bool
 	Customer   Customer
 }
 

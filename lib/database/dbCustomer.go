@@ -7,7 +7,6 @@ import (
 )
 
 func Register(getCustomer *model.Customer) (interface{}, error) {
-	// var customer models.Customers
 
 	customer := *getCustomer
 
