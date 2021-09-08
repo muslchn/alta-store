@@ -92,3 +92,15 @@ func DeleteCartItem(id uint) (interface{}, error) {
 
 	return true, nil
 }
+
+func ChangeCartStatus(id uint) error {
+	cart := model.Cart{
+		Checkout: true,
+	}
+
+	if err := config.DB.Where("id = ?", id).Updates(&cart).Error; err != nil {
+		return err
+	}
+
+	return nil
+}

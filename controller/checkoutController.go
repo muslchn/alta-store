@@ -22,6 +22,8 @@ func CheckoutController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
+	database.ChangeCartStatus(uint(cartId))
+
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"status":   "success",
 		"checkout": checkout,
