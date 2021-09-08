@@ -16,7 +16,7 @@ func CheckoutController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	checkout, err := database.CreatCheckout(uint(cartId), totalItem, totalPrice)
+	checkout, err := database.CreateCheckout(uint(cartId), totalItem, totalPrice)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
@@ -26,4 +26,12 @@ func CheckoutController(c echo.Context) error {
 		"status":   "success",
 		"checkout": checkout,
 	})
+}
+
+func GetCheckoutController(c echo.Context) error {
+	return nil
+}
+
+func GetCheckoutByIdController(c echo.Context) error {
+	return nil
 }

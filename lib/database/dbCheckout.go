@@ -24,7 +24,7 @@ func GetTotal(cartId uint) (uint, uint, error) {
 	return totalItem, totalPrice, nil
 }
 
-func CreatCheckout(CartId, totalItem, totalPrice uint) (interface{}, error) {
+func CreateCheckout(CartId, totalItem, totalPrice uint) (interface{}, error) {
 	checkout := model.Checkout{
 		CartID:     CartId,
 		TotalItem:  totalItem,

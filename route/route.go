@@ -40,8 +40,14 @@ func New() *echo.Echo {
 	r.DELETE("/carts/:id", controller.DeleteCartItemController)
 
 	// Checkout
+	r.POST("/checkout", controller.CheckoutController)
+	r.GET("/checkout", controller.GetCheckoutController)
+	r.GET("/checkout/:id", controller.GetCheckoutByIdController)
 
 	// Payment
+	r.POST("/payment", controller.PaymentController)
+	r.GET("/payment/last", controller.LastPaymentController)
+	r.GET("/payment", controller.PaymentHistoryController)
 
 	return e
 }
