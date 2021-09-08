@@ -43,5 +43,15 @@ func GetCheckoutController(c echo.Context) error {
 }
 
 func GetCheckoutByIdController(c echo.Context) error {
-	return nil
+	id, _ := strconv.Atoi(c.Param("id"))
+	checkout, err := database.GetCheckoutById(uint(id))
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":   "success",
+		"checkout": checkout,
+	})
 }

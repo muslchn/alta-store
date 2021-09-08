@@ -24,9 +24,18 @@ func GetTotal(cartId uint) (uint, uint, error) {
 	return totalItem, totalPrice, nil
 }
 
-func CreateCheckout(CartId, totalItem, totalPrice uint) (interface{}, error) {
+func CreateCheckout(cartId, totalItem, totalPrice uint) (interface{}, error) {
+	var cart model.Cart
+
+	if err := config.DB.Where("id = ?", cartId).Find(&cart).Error; err != nil {
+		return nil, err
+	}
+
+	customerId := cart.CustomerID
+
 	checkout := model.Checkout{
-		CartID:     CartId,
+		CustomerID: customerId,
+		CartID:     cartId,
 		TotalItem:  totalItem,
 		TotalPrice: totalPrice,
 		Paid:       false,
@@ -43,6 +52,16 @@ func GetCheckout(customerId uint) (interface{}, error) {
 	var checkout []model.Checkout
 
 	if err := config.DB.Where("customer_id = ? AND paid = false", customerId).Find(&checkout).Error; err != nil {
+		return nil, err
+	}
+
+	return checkout, nil
+}
+
+func GetCheckoutById(id uint) (interface{}, error) {
+	var checkout model.Checkout
+
+	if err := config.DB.Where("id = ?", id).Find(&checkout).Error; err != nil {
 		return nil, err
 	}
 
