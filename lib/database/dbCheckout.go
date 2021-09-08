@@ -38,3 +38,13 @@ func CreateCheckout(CartId, totalItem, totalPrice uint) (interface{}, error) {
 
 	return checkout, nil
 }
+
+func GetCheckout(customerId uint) (interface{}, error) {
+	var checkout []model.Checkout
+
+	if err := config.DB.Where("customer_id = ? AND paid = false", customerId).Find(&checkout).Error; err != nil {
+		return nil, err
+	}
+
+	return checkout, nil
+}

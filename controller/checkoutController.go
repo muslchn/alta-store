@@ -29,7 +29,17 @@ func CheckoutController(c echo.Context) error {
 }
 
 func GetCheckoutController(c echo.Context) error {
-	return nil
+	customerId, _ := strconv.Atoi(c.QueryParam("customer_id"))
+	checkout, err := database.GetCheckout(uint(customerId))
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":   "success",
+		"checkout": checkout,
+	})
 }
 
 func GetCheckoutByIdController(c echo.Context) error {
