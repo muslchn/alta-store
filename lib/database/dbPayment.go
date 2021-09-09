@@ -32,3 +32,13 @@ func Payment(checkoutId uint) (interface{}, error) {
 
 	return payment, nil
 }
+
+func LastPayment(customerId uint) (interface{}, error) {
+	var lastPayment model.Payment
+
+	if err := config.DB.Where("customer_id = ?", customerId).Last(&lastPayment).Error; err != nil {
+		return nil, err
+	}
+
+	return lastPayment, nil
+}
