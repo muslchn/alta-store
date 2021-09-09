@@ -15,10 +15,10 @@ func GetProducts() (interface{}, error) {
 	return products, nil
 }
 
-func GetProductsByCategory(id int) (interface{}, error) {
+func GetProductsByCategory(categoryId uint) (interface{}, error) {
 	var products []model.Product
 
-	if err := config.DB.Where("category_id  = ?", id).Find(&products).Error; err != nil {
+	if err := config.DB.Where("category_id  = ?", categoryId).Find(&products).Error; err != nil {
 		return nil, err
 	}
 

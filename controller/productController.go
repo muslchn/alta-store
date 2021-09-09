@@ -23,18 +23,16 @@ func GetProductsController(c echo.Context) error {
 }
 
 func GetProductsByCategoryController(c echo.Context) error {
-	categoryId, _ := strconv.Atoi(c.Param("categoryId"))
+	categoryId, _ := strconv.Atoi(c.QueryParam("category"))
 
-	products, err := database.GetProductsByCategory(categoryId)
+	products, err := database.GetProductsByCategory(uint(categoryId))
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	//id, _ := strconv.Atoi(c.Param("id"))
-
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"products": products,
+	return c.JSON(http.StatusOK, model.Message{
+		Status: "success get products",
+		Data:   products,
 	})
 }
