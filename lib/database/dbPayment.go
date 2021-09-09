@@ -52,3 +52,13 @@ func PaymentHistory(customerId uint) (interface{}, error) {
 
 	return paymentHistory, nil
 }
+
+func PaymentById(id uint) (interface{}, error) {
+	var paymentById model.Payment
+
+	if err := config.DB.Where("id = ?", id).Find(&paymentById).Error; err != nil {
+		return nil, err
+	}
+
+	return paymentById, nil
+}
