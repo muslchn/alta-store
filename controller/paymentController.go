@@ -1,10 +1,25 @@
 package controller
 
-import "github.com/labstack/echo/v4"
+import (
+	"alta-store/lib/database"
+	"net/http"
+	"strconv"
+
+	"github.com/labstack/echo/v4"
+)
 
 func PaymentController(c echo.Context) error {
+	checkoutId, _ := strconv.Atoi(c.FormValue("checkoutId"))
+	payment, err := database.Payment(uint(checkoutId))
 
-	return nil
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":  "success",
+		"payment": payment,
+	})
 }
 
 func LastPaymentController(c echo.Context) error {
