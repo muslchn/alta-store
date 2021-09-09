@@ -25,7 +25,7 @@ func New() *echo.Echo {
 
 	// Customer Authentication
 	e.POST("/register", controller.RegisterController)
-	e.POST("/login", controller.LoginCustomersController)
+	e.POST("/login", controller.LoginController)
 
 	// JWT Group
 	r := e.Group("")

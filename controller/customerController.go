@@ -35,7 +35,7 @@ func RegisterController(c echo.Context) error {
 	// customer.PostalCode = postalCode
 
 	// binding data
-	customer := model.Customer{}
+	var customer model.Customer
 	c.Bind(&customer)
 	register, err := database.Register(&customer)
 
@@ -50,17 +50,39 @@ func RegisterController(c echo.Context) error {
 	})
 }
 
-func LoginCustomersController(c echo.Context) error {
-	customer := model.Customer{}
-	c.Bind(&customer)
-
-	customers, err := database.LoginCustomers(&customer)
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+func LoginController(c echo.Context) error {
+	type dataModel struct {
+		email string
+		token string
 	}
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":    "success login",
-		"customers": customers,
+
+	email := c.FormValue("email")
+	password := c.FormValue("password")
+
+	customer, name, token, err := database.Login(email, password)
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	if customer == nil {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "account not found or password incorrect",
+		})
+	}
+
+	hello := "hello" + name
+
+	data := dataModel{
+		email: email,
+		token: token,
+	}
+
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: hello,
+		Data:    data,
 	})
 }
 

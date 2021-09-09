@@ -26,21 +26,24 @@ func GetDetailCustomers(customerId int) (interface{}, error) {
 	return customer, nil
 }
 
-func LoginCustomers(customer *model.Customer) (interface{}, error) {
+func Login(email, password string) (interface{}, string, string, error) {
+	var customer model.Customer
 
-	var err error
-	if err = config.DB.Where("email = ? AND password = ?", customer.Email, customer.Password).First(customer).Error; err != nil {
-		return nil, err
+	if err := config.DB.Where("email = ? AND password = ?", email, password).First(&customer).Error; err != nil {
+		return nil, "", "", err
 	}
 
-	customer.Token, err = middleware.CreateToken(int(customer.ID))
+	token, err := middleware.CreateToken(int(customer.ID))
+
 	if err != nil {
-		return nil, err
+		return nil, "", "", err
 	}
 
-	if err := config.DB.Save(customer).Error; err != nil {
-		return nil, err
+	customer.Token = token
+
+	if err := config.DB.Save(&customer).Error; err != nil {
+		return nil, "", "", err
 	}
 
-	return customer, nil
+	return customer, customer.FirstName, customer.Token, nil
 }
