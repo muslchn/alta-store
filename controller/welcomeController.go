@@ -7,5 +7,5 @@ import (
 )
 
 func WelcomeController(c echo.Context) error {
-	return c.String(http.StatusOK, "Welcome to ALTA STORE")
+	return c.String(http.StatusOK, "Welcome to ALTA STORE\nHappy Shopping :)")
 }
