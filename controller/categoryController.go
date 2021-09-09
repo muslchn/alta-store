@@ -17,8 +17,9 @@ func GetCategoryController(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, model.Response{
-		Status: "success get categories",
-		Data:   category,
+		Status:  "ok",
+		Message: "success get categories",
+		Data:    category,
 	})
 }
 
