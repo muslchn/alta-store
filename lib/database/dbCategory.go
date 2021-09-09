@@ -15,8 +15,8 @@ func GetCategory() (interface{}, error) {
 	return category, nil
 }
 
-func GetCategoryById(id int) (interface{}, error) {
-	var category []model.Category
+func GetCategoryById(id uint) (interface{}, error) {
+	var category model.Category
 
 	if err := config.DB.Where("id = ?", id).Find(&category).Error; err != nil {
 		return nil, err

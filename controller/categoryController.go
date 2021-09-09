@@ -24,10 +24,10 @@ func GetCategoryController(c echo.Context) error {
 
 func GetCategoryByIdController(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
-	category, err := database.GetCategoryById(id)
+	category, err := database.GetCategoryById(uint(id))
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
