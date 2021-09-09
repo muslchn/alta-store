@@ -32,8 +32,16 @@ func GetProductsByCategoryController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
+	if products == nil {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "category not found",
+		})
+	}
+
 	return c.JSON(http.StatusOK, model.Response{
-		Status: "success get products",
-		Data:   products,
+		Status:  "ok",
+		Message: "success get products",
+		Data:    products,
 	})
 }
