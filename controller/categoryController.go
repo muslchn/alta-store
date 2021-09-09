@@ -2,6 +2,7 @@ package controller
 
 import (
 	"alta-store/lib/database"
+	"alta-store/model"
 	"net/http"
 	"strconv"
 
@@ -12,12 +13,12 @@ func GetCategoryController(c echo.Context) error {
 	category, err := database.GetCategory()
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"category": category,
+	return c.JSON(http.StatusOK, model.Message{
+		Status: "success get categories",
+		Data:   category,
 	})
 }
 
