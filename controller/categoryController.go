@@ -31,8 +31,16 @@ func GetCategoryByIdController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"category": category,
+	if category == nil {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "category not found",
+		})
+	}
+
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get category",
+		Data:    category,
 	})
 }
