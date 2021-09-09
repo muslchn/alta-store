@@ -16,7 +16,7 @@ func GetProductsController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Message{
+	return c.JSON(http.StatusOK, model.Response{
 		Status: "success get products",
 		Data:   products,
 	})
@@ -31,7 +31,7 @@ func GetProductsByCategoryController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Message{
+	return c.JSON(http.StatusOK, model.Response{
 		Status: "success get products",
 		Data:   products,
 	})
