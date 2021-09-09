@@ -2,6 +2,7 @@ package controller
 
 import (
 	"alta-store/lib/database"
+	"alta-store/model"
 	"net/http"
 	"strconv"
 
@@ -12,12 +13,12 @@ func GetProductsController(c echo.Context) error {
 	products, err := database.GetProducts()
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"products": products,
+	return c.JSON(http.StatusOK, model.Message{
+		Status: "success get products",
+		Data:   products,
 	})
 }
 
