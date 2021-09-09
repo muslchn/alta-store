@@ -10,39 +10,43 @@ import (
 )
 
 func RegisterController(c echo.Context) error {
-	// get data form value
-	firstName := c.FormValue("firstName")
-	lastName := c.FormValue("lastName")
-	username := c.FormValue("username")
-	email := c.FormValue("email")
-	password := c.FormValue("password")
-	phone := c.FormValue("phone")
-	address := c.FormValue("address")
-	city := c.FormValue("city")
-	state := c.FormValue("state")
-	postalCode := c.FormValue("postalCode")
+	// // get data form value
+	// firstName := c.FormValue("firstName")
+	// lastName := c.FormValue("lastName")
+	// username := c.FormValue("username")
+	// email := c.FormValue("email")
+	// password := c.FormValue("password")
+	// phone := c.FormValue("phone")
+	// address := c.FormValue("address")
+	// city := c.FormValue("city")
+	// state := c.FormValue("state")
+	// postalCode := c.FormValue("postalCode")
 
-	var customer model.Customer
-	customer.FirstName = firstName
-	customer.LastName = lastName
-	customer.Username = username
-	customer.Email = email
-	customer.Password = password
-	customer.Phone = phone
-	customer.Address = address
-	customer.City = city
-	customer.State = state
-	customer.PostalCode = postalCode
+	// var customer model.Customer
+	// customer.FirstName = firstName
+	// customer.LastName = lastName
+	// customer.Username = username
+	// customer.Email = email
+	// customer.Password = password
+	// customer.Phone = phone
+	// customer.Address = address
+	// customer.City = city
+	// customer.State = state
+	// customer.PostalCode = postalCode
 
+	// binding data
+	customer := model.Customer{}
+	c.Bind(&customer)
 	register, err := database.Register(&customer)
 
 	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message":  "success create customer",
-		"customer": register,
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "register succeed",
+		Data:    register,
 	})
 }
 
