@@ -9,7 +9,7 @@ type Customer struct {
 	FirstName  string `gorm:"size:255;not null" json:"firstName" form:"firstName"`
 	LastName   string `gorm:"size:255" json:"lastName" form:"lastName"`
 	Username   string `gorm:"size:255;not null;unique" json:"username" form:"username"`
-	Email      string `gorm:"size:100;not null;unique" json:"email" form:"email"`
+	Email      string `gorm:"size:100;not null;unique" valid:"email" json:"email" form:"email"`
 	Password   string `gorm:"size:100;not null" json:"password" form:"password"`
 	Phone      string `gorm:"size:15;not null" json:"phone" form:"phone"`
 	Address    string `gorm:"size:255;not null" json:"address" form:"address"`
