@@ -17,8 +17,9 @@ func GetProductsController(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, model.Response{
-		Status: "success get products",
-		Data:   products,
+		Status:  "ok",
+		Message: "success get products",
+		Data:    products,
 	})
 }
 
