@@ -37,7 +37,17 @@ func LastPaymentController(c echo.Context) error {
 }
 
 func PaymentHistoryController(c echo.Context) error {
-	return nil
+	customerId, _ := strconv.Atoi(c.QueryParam("customerId"))
+	paymentHistory, err := database.PaymentHistory(uint(customerId))
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status":         "success",
+		"paymentHistory": paymentHistory,
+	})
 }
 
 func PaymentByIdController(c echo.Context) error {
