@@ -87,20 +87,23 @@ func LoginController(c echo.Context) error {
 }
 
 func GetCustomerDetailController(c echo.Context) error {
-	id, err := strconv.Atoi(c.Param("id"))
+	id, _ := strconv.Atoi(c.Param("id"))
+	customer, err := database.GetDetailCustomer(id)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	customers, err := database.GetDetailCustomers((id))
-
-	if err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	if customer == nil {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "data not found",
+		})
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":    "success",
-		"customers": customers,
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get customer detail",
+		Data:    customer,
 	})
 }

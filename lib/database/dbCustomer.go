@@ -17,10 +17,10 @@ func Register(getCustomer *model.Customer) (interface{}, error) {
 	return customer, nil
 }
 
-func GetDetailCustomers(customerId int) (interface{}, error) {
+func GetDetailCustomer(id int) (interface{}, error) {
 	var customer model.Customer
 
-	if err := config.DB.Find(&customer, customerId).Error; err != nil {
+	if err := config.DB.Find(&customer, "id = ?", id).Error; err != nil {
 		return nil, err
 	}
 	return customer, nil
