@@ -35,16 +35,17 @@ func CheckoutController(c echo.Context) error {
 }
 
 func GetCheckoutController(c echo.Context) error {
-	customerId, _ := strconv.Atoi(c.QueryParam("customer_id"))
+	customerId := middleware.ExtractTokenCustomerId(c)
 	checkout, err := database.GetCheckout(uint(customerId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"checkout": checkout,
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get checkout(s)",
+		Data:    checkout,
 	})
 }
 
