@@ -7,16 +7,16 @@ import (
 
 func GetTotal(cartId uint) (uint, uint, error) {
 	var (
-		cartItem   []model.CartItem
+		cartItems  []model.CartItem
 		totalItem  uint
 		totalPrice uint
 	)
 
-	if err := config.DB.Where("cart_id = ?", cartId).Find(&cartItem).Error; err != nil {
+	if err := config.DB.Where("cart_id = ?", cartId).Find(&cartItems).Error; err != nil {
 		return 0, 0, err
 	}
 
-	for _, item := range cartItem {
+	for _, item := range cartItems {
 		totalItem += item.Qty
 		totalPrice += item.Total
 	}
@@ -24,14 +24,14 @@ func GetTotal(cartId uint) (uint, uint, error) {
 	return totalItem, totalPrice, nil
 }
 
-func CreateCheckout(cartId, totalItem, totalPrice uint) (interface{}, error) {
-	var cart model.Cart
+func CreateCheckout(customerId, cartId, totalItem, totalPrice uint) (interface{}, error) {
+	// var cart model.Cart
 
-	if err := config.DB.Where("id = ?", cartId).Find(&cart).Error; err != nil {
-		return nil, err
-	}
+	// if err := config.DB.Where("id = ?", cartId).Find(&cart).Error; err != nil {
+	// 	return nil, err
+	// }
 
-	customerId := cart.CustomerID
+	// customerId := cart.CustomerID
 
 	checkout := model.Checkout{
 		CustomerID: customerId,

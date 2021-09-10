@@ -2,6 +2,8 @@ package controller
 
 import (
 	"alta-store/lib/database"
+	"alta-store/middleware"
+	"alta-store/model"
 	"net/http"
 	"strconv"
 
@@ -9,14 +11,15 @@ import (
 )
 
 func CheckoutController(c echo.Context) error {
-	cartId, _ := strconv.Atoi(c.FormValue("cartId"))
+	customerId := middleware.ExtractTokenCustomerId(c)
+	cartId, _ := database.CartCheck(uint(customerId))
 	totalItem, totalPrice, err := database.GetTotal(uint(cartId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	checkout, err := database.CreateCheckout(uint(cartId), totalItem, totalPrice)
+	checkout, err := database.CreateCheckout(uint(customerId), uint(cartId), totalItem, totalPrice)
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
@@ -24,9 +27,10 @@ func CheckoutController(c echo.Context) error {
 
 	database.ChangeCartStatus(uint(cartId))
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"checkout": checkout,
+	return c.JSON(http.StatusCreated, model.Response{
+		Status:  "ok",
+		Message: "success checkout",
+		Data:    checkout,
 	})
 }
 
