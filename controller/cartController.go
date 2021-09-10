@@ -38,7 +38,7 @@ func AddCartItemController(c echo.Context) error {
 		})
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusCreated, model.Response{
 		Status:  "ok",
 		Message: "success add item to cart",
 		Data:    cartItem,
