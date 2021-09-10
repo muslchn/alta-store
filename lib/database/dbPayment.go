@@ -5,19 +5,23 @@ import (
 	"alta-store/model"
 )
 
-func Payment(checkoutId uint) (interface{}, error) {
+func Payment(customerId, checkoutId uint) (interface{}, error) {
 	var (
-		checkout   model.Checkout
-		payment    model.Payment
-		customerId uint
-		paid       uint
+		checkout model.Checkout
+		payment  model.Payment
+		paid     uint
 	)
 
-	if err := config.DB.Where("id = ?", checkoutId).Find(&checkout).Error; err != nil {
-		return nil, err
+	query := config.DB.Where("id = ? AND customer_id = ?", checkoutId, customerId).First(&checkout)
+
+	if query.Error != nil {
+		return nil, query.Error
 	}
 
-	customerId = checkout.CustomerID
+	if query.RowsAffected == 0 {
+		return nil, nil
+	}
+
 	paid = checkout.TotalPrice
 
 	payment = model.Payment{

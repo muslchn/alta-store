@@ -2,6 +2,8 @@ package controller
 
 import (
 	"alta-store/lib/database"
+	"alta-store/middleware"
+	"alta-store/model"
 	"net/http"
 	"strconv"
 
@@ -9,16 +11,25 @@ import (
 )
 
 func PaymentController(c echo.Context) error {
+	customerId := middleware.ExtractTokenCustomerId(c)
 	checkoutId, _ := strconv.Atoi(c.FormValue("checkoutId"))
-	payment, err := database.Payment(uint(checkoutId))
+	payment, err := database.Payment(uint(customerId), uint(checkoutId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":  "success",
-		"payment": payment,
+	if payment == nil {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "checkout data not found",
+		})
+	}
+
+	return c.JSON(http.StatusCreated, model.Response{
+		Status:  "ok",
+		Message: "payment success",
+		Data:    payment,
 	})
 }
 
