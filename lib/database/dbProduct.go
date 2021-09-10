@@ -49,17 +49,26 @@ func UpdateProductStockById(id, stock, qty uint) {
 	config.DB.Where("product_id = ?", id).Updates(&product)
 }
 
-func ReturnStock(productId, qty uint) {
-	product := model.Product{}
-	stock := 0
-	query := config.DB.Where("id = ?", productId).Find(&product)
+func ReturnStock(productId, qty uint) error {
+	var (
+		product model.Product
+		stock   uint
+	)
 
-	if query.RowsAffected > 0 {
-		stock = int(product.Stock)
+	query := config.DB.Where("id = ?", productId).First(&product)
+
+	if query.Error != nil {
+		return query.Error
+	}
+
+	if query.RowsAffected != 0 {
+		stock = product.Stock
 		returnStock := model.Product{
-			Stock: uint(stock) + qty,
+			Stock: stock + qty,
 		}
 
 		config.DB.Where("id = ?", productId).Updates(&returnStock)
 	}
+
+	return nil
 }

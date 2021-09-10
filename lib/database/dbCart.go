@@ -100,19 +100,21 @@ func ValidateCartItem(cartItemId, customerId uint) (bool, map[string]uint, error
 	returnItem := make(map[string]uint)
 
 	if query.Error != nil {
-		return false, returnItem, query.Error
-	} else if cartItem.ID != cartId {
-		return false, returnItem, nil
+		return false, nil, query.Error
 	}
 
-	returnItem["product_id"] = cartItem.ProductID
+	if query.RowsAffected == 0 {
+		return false, nil, nil
+	}
+
+	returnItem["productId"] = cartItem.ProductID
 	returnItem["qty"] = cartItem.Qty
 
 	return true, returnItem, nil
 }
 
 func DeleteCartItem(id uint) (interface{}, error) {
-	var cartItem []model.CartItem
+	var cartItem model.CartItem
 
 	if err := config.DB.Where("id = ?", id).Delete(&cartItem).Error; err != nil {
 		return nil, err

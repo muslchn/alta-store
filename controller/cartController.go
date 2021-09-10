@@ -70,17 +70,17 @@ func DeleteCartItemController(c echo.Context) error {
 	}
 
 	if !validate {
-		return c.JSON(http.StatusForbidden, map[string]string{
-			"status":  "fail",
-			"message": "You do not have access to delete the data",
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "item not found",
 		})
 	}
 
-	database.ReturnStock(validateItem["product_id"], validateItem["qty"])
+	database.ReturnStock(validateItem["productId"], validateItem["qty"])
 	database.DeleteCartItem(uint(cartItemId))
 
-	return c.JSON(http.StatusOK, map[string]string{
-		"status":  "success",
-		"message": "Product has been removed from the cart",
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "item removed",
 	})
 }
