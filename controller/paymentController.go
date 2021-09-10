@@ -58,21 +58,30 @@ func PaymentHistoryController(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, model.Response{
 		Status:  "ok",
-		Message: "success get payment history",
+		Message: "success get payment history(s)",
 		Data:    paymentHistory,
 	})
 }
 
 func PaymentByIdController(c echo.Context) error {
+	customerId := middleware.ExtractTokenCustomerId(c)
 	id, _ := strconv.Atoi(c.Param("id"))
-	paymentById, err := database.PaymentById(uint(id))
+	paymentById, err := database.PaymentById(uint(id), uint(customerId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":  "success",
-		"payment": paymentById,
+	if paymentById == nil {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "data not found",
+		})
+	}
+
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get payment history",
+		Data:    paymentById,
 	})
 }

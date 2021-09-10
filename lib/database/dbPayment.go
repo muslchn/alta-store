@@ -57,11 +57,17 @@ func PaymentHistory(customerId uint) (interface{}, error) {
 	return paymentHistory, nil
 }
 
-func PaymentById(id uint) (interface{}, error) {
+func PaymentById(id, customerId uint) (interface{}, error) {
 	var paymentById model.Payment
 
-	if err := config.DB.Where("id = ?", id).Find(&paymentById).Error; err != nil {
-		return nil, err
+	query := config.DB.Where("id = ? AND customer_id = ?", id, customerId).First(&paymentById)
+
+	if query.Error != nil {
+		return nil, query.Error
+	}
+
+	if query.RowsAffected == 0 {
+		return nil, nil
 	}
 
 	return paymentById, nil
