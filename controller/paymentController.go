@@ -49,16 +49,17 @@ func LastPaymentController(c echo.Context) error {
 }
 
 func PaymentHistoryController(c echo.Context) error {
-	customerId, _ := strconv.Atoi(c.QueryParam("customerId"))
+	customerId := middleware.ExtractTokenCustomerId(c)
 	paymentHistory, err := database.PaymentHistory(uint(customerId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":         "success",
-		"paymentHistory": paymentHistory,
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get payment history",
+		Data:    paymentHistory,
 	})
 }
 
