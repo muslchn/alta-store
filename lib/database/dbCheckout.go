@@ -58,11 +58,17 @@ func GetCheckout(customerId uint) (interface{}, error) {
 	return checkout, nil
 }
 
-func GetCheckoutById(id uint) (interface{}, error) {
+func GetCheckoutById(id, customerId uint) (interface{}, error) {
 	var checkout model.Checkout
 
-	if err := config.DB.Where("id = ?", id).Find(&checkout).Error; err != nil {
-		return nil, err
+	query := config.DB.Where("id = ? AND customer_id = ?", id, customerId).First(&checkout)
+
+	if query.Error != nil {
+		return nil, query.Error
+	}
+
+	if query.RowsAffected == 0 {
+		return nil, nil
 	}
 
 	return checkout, nil

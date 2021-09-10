@@ -50,15 +50,24 @@ func GetCheckoutController(c echo.Context) error {
 }
 
 func GetCheckoutByIdController(c echo.Context) error {
+	customerId := middleware.ExtractTokenCustomerId(c)
 	id, _ := strconv.Atoi(c.Param("id"))
-	checkout, err := database.GetCheckoutById(uint(id))
+	checkout, err := database.GetCheckoutById(uint(id), uint(customerId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"checkout": checkout,
+	if checkout == nil {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "checkout data not found",
+		})
+	}
+
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get checkout data",
+		Data:    checkout,
 	})
 }
