@@ -3,6 +3,7 @@ package controller
 import (
 	"alta-store/lib/database"
 	"alta-store/middleware"
+	"alta-store/model"
 	"net/http"
 	"strconv"
 
@@ -11,18 +12,36 @@ import (
 
 func AddCartItemController(c echo.Context) error {
 	customerId := middleware.ExtractTokenCustomerId(c)
-	payloadData := make(map[string]string)
-	payloadData["product_id"] = c.FormValue("product_id")
-	payloadData["qty"] = c.FormValue("qty")
-	cartItem, err := database.AddCartItem(payloadData, uint(customerId))
+	item := make(map[string]string)
+	item["productId"] = c.FormValue("productId")
+	item["qty"] = c.FormValue("qty")
+	validation, cartItem, err := database.AddCartItem(item, uint(customerId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status": "success",
-		"item":   cartItem,
+	if !validation[0] {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "product not found",
+		})
+	} else if !validation[1] {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "product out of stock",
+		})
+	} else if !validation[2] {
+		return c.JSON(http.StatusBadRequest, model.Response{
+			Status:  "fail",
+			Message: "product is less than you want to take",
+		})
+	}
+
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success add item to cart",
+		Data:    cartItem,
 	})
 }
 
