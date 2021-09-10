@@ -43,7 +43,7 @@ func RegisterController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusCreated, model.Response{
 		Status:  "ok",
 		Message: "register succeed",
 		Data:    register,

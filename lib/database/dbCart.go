@@ -93,9 +93,10 @@ func AddCartItem(item map[string]string, customerId uint) ([]bool, interface{}, 
 }
 
 func ValidateCartItem(cartItemId, customerId uint) (bool, map[string]uint, error) {
+	var cartItem model.CartItem
+
 	cartId, _ := CartCheck(customerId)
-	cartItem := model.CartItem{}
-	query := config.DB.Where("id = ?", cartItemId).Find(&cartItem)
+	query := config.DB.Where("id = ? AND cart_id = ?", cartItemId, cartId).Find(&cartItem)
 	returnItem := make(map[string]uint)
 
 	if query.Error != nil {
