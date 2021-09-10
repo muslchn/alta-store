@@ -1,8 +1,8 @@
 package route
 
 import (
-	"alta-store/constant"
 	"alta-store/controller"
+	"alta-store/secret"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -29,7 +29,7 @@ func New() *echo.Echo {
 
 	// JWT Group
 	r := e.Group("")
-	r.Use(middleware.JWT([]byte(constant.SECRET_JWT)))
+	r.Use(middleware.JWT([]byte(secret.SECRET_JWT)))
 
 	// Customer Auth
 	r.GET("/customers/:id", controller.GetCustomerDetailController)

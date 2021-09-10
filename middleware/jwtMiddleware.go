@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	constants "alta-store/constant"
+	"alta-store/secret"
 	"time"
 
 	"github.com/golang-jwt/jwt"
@@ -15,7 +15,7 @@ func CreateToken(customerId int) (string, error) {
 	claims["exp"] = time.Now().Add(time.Hour * 1).Unix()
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(constants.SECRET_JWT))
+	return token.SignedString([]byte(secret.SECRET_JWT))
 }
 
 func ExtractTokenCustomerId(e echo.Context) int {
