@@ -87,7 +87,7 @@ func AddCartItem(item map[string]string, customerId uint) ([]bool, interface{}, 
 		return nil, nil, err
 	}
 
-	// UpdateProductStockById(uint(productId), productStock, uint(qty))
+	UpdateProductStockById(uint(productId), productStock, uint(qty))
 
 	return nil, cartItem, nil
 }
