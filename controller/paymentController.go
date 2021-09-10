@@ -34,16 +34,17 @@ func PaymentController(c echo.Context) error {
 }
 
 func LastPaymentController(c echo.Context) error {
-	customerId, _ := strconv.Atoi(c.QueryParam("customerId"))
+	customerId := middleware.ExtractTokenCustomerId(c)
 	lastPayment, err := database.LastPayment(uint(customerId))
 
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":      "success",
-		"lastPayment": lastPayment,
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get last payment",
+		Data:    lastPayment,
 	})
 }
 
