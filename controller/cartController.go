@@ -53,9 +53,10 @@ func GetCartController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]interface{}{
-		"status":   "success",
-		"products": cart,
+	return c.JSON(http.StatusOK, model.Response{
+		Status:  "ok",
+		Message: "success get cart",
+		Data:    cart,
 	})
 }
 
