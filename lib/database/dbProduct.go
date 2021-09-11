@@ -24,9 +24,9 @@ func GetProductsByCategory(categoryId uint) (interface{}, error) {
 		return nil, query.Error
 	}
 
-	// if query.RowsAffected == 0 {
-	// 	return nil, nil
-	// }
+	if query.RowsAffected == 0 {
+		return nil, nil
+	}
 
 	return products, nil
 }
