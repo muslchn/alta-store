@@ -12,7 +12,7 @@ func Payment(customerId, checkoutId uint) (interface{}, error) {
 		paid     uint
 	)
 
-	query := config.DB.Where("id = ? AND customer_id = ?", checkoutId, customerId).First(&checkout)
+	query := config.DB.Where("id = ? AND customer_id = ? AND paid = false", checkoutId, customerId).First(&checkout)
 
 	if query.Error != nil {
 		return nil, query.Error
@@ -33,6 +33,8 @@ func Payment(customerId, checkoutId uint) (interface{}, error) {
 	if err := config.DB.Create(&payment).Error; err != nil {
 		return nil, err
 	}
+
+	EditCheckoutStatus(checkoutId)
 
 	return payment, nil
 }

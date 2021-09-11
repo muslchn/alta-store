@@ -73,3 +73,15 @@ func GetCheckoutById(id, customerId uint) (interface{}, error) {
 
 	return checkout, nil
 }
+
+func EditCheckoutStatus(id uint) error {
+	var checkout = model.Checkout{
+		Paid: true,
+	}
+
+	if err := config.DB.Where("id = ?", id).Updates(&checkout).Error; err != nil {
+		return err
+	}
+
+	return nil
+}
