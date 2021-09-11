@@ -18,9 +18,15 @@ func GetProducts() (interface{}, error) {
 func GetProductsByCategory(categoryId uint) (interface{}, error) {
 	var products []model.Product
 
-	if err := config.DB.Where("category_id  = ?", categoryId).Find(&products).Error; err != nil {
-		return nil, err
+	query := config.DB.Where("category_id  = ?", categoryId).Find(&products)
+
+	if query.Error != nil {
+		return nil, query.Error
 	}
+
+	// if query.RowsAffected == 0 {
+	// 	return nil, nil
+	// }
 
 	return products, nil
 }
