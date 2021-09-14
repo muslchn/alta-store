@@ -23,7 +23,7 @@ services:
     image: mysql:latest
     container_name: full_db_mysql
     ports: 
-      - 3306:3306
+      - 3366:3306
     environment: 
       MYSQL_ROOT_PASSWORD: 123ABCd4.
       MYSQL_DATABASE: alta-store
