@@ -20,11 +20,11 @@ services:
     ports: 
       - 3306:3306
     environment: 
-      - MYSQL_ROOT_HOST: localhost
-      - MYSQL_USER: root
-      - MYSQL_PASSWORD: 123ABCd4.
-      - MYSQL_DATABASE: alta-store
-      - MYSQL_ROOT_PASSWORD: 123ABCd4.
+      MYSQL_ROOT_HOST: localhost
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123ABCd4.
+      MYSQL_DATABASE: alta-store
+      MYSQL_ROOT_PASSWORD: 123ABCd4.
     volumes: 
       - database_mysql:/var/lib/mysql
     networks: 
