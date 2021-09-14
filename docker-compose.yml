@@ -26,4 +26,4 @@ services:
       retries: 10
 
 volumes: 
-  alta-mysql-data
+  alta-mysql-data:
