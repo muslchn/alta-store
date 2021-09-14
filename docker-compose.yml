@@ -36,6 +36,8 @@ volumes:
 
 # Networks to be created to facilitate communication between containers
 networks: 
+  alta:
+    driver: bridge
 
 # version: "3.8"
 
