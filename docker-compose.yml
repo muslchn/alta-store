@@ -1,29 +1,68 @@
 version: "3.8"
 
-services:
-  alta_store:
-    build: 
-      context: .
-      dockerfile: Dockerfile
+services: 
+  app:
+    container_name: full_app
+    build: .
     ports: 
       - 8080:8080
+    restart: on-failure
+    volumes: 
+      - api:/usr/src/app/
     depends_on: 
-      mysql_server:
-        condition: service_healthy
+      - mysql
+    networks: 
+      - alta
 
-  mysql_server:
+  mysql:
     image: mysql:latest
-    environment: 
-      MYSQL_ROOT_PASSWORD: 123ABCd4.
+    container_name: full_db_mysql
     ports: 
       - 3306:3306
-    restart: always
+    environment: 
+      - MYSQL_ROOT_HOST: localhost
+      - MYSQL_USER: root
+      - MYSQL_PASSWORD: 123ABCd4.
+      - MYSQL_DATABASE: alta-store
+      - MYSQL_ROOT_PASSWORD: 123ABCd4.
     volumes: 
-      - alta-mysql-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+      - database_mysql:/var/lib/mysql
+    networks: 
+      - alta
 
 volumes: 
-  alta-mysql-data:
+  api:
+  database_mysql:
+
+# Networks to be created to facilitate communication between containers
+networks: 
+
+# version: "3.8"
+
+# services:
+#   alta_store:
+#     build: 
+#       context: .
+#       dockerfile: Dockerfile
+#     ports: 
+#       - 8080:8080
+#     depends_on: 
+#       mysql_server:
+#         condition: service_healthy
+
+#   mysql_server:
+#     image: mysql:latest
+#     environment: 
+#       MYSQL_ROOT_PASSWORD: 123ABCd4.
+#     ports: 
+#       - 3306:3306
+#     restart: always
+#     volumes: 
+#       - alta-mysql-data:/var/lib/mysql
+#     healthcheck:
+#       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+#       timeout: 20s
+#       retries: 10
+
+# volumes: 
+#   alta-mysql-data:
