@@ -11,7 +11,7 @@ services:
       mysql_server:
         condition: service_healthy
 
-  mysql_server:
+  mysql:
     image: mysql:latest
     environment: 
       MYSQL_ROOT_PASSWORD: 123ABCd4.
@@ -19,14 +19,11 @@ services:
       - 3306:3306
     restart: always
     volumes: 
-      - ../data/mysql:/var/lib/mysql
-      - ../mysql:/etc/mysql/conf.d
+      - alta-mysql-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 20s
       retries: 10
 
-networks: 
-  default:
-    external: 
-      name: my-network
+volumes: 
+  alta-mysql-data
