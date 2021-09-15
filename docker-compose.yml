@@ -2,20 +2,53 @@ version: '3.8'
 
 services: 
 
-  mysql-development:
-    image: mysql
-    environment: 
-      MYSQL_ROOT_PASSWORD: 123ABC4d.
-      MYSQL_DATABASE: alta-store
-    ports: 
-      - "3306:3306"
-
   alta-store-app:
     build: 
       context: .
       dockerfile: Dockerfile
     ports: 
-      - "8080:8080"
+      - 8080:8080
+    # working_dir: /alta-store
+    # volumes: 
+    #   - ./:/alta-store
+    # environment: 
+    #   MYSQL_HOST: mysql
+    #   MYSQL_USER: root
+    #   MYSQL_PASSWORD: 123ABC4d.
+    #   MYSQL_DB: alta-store
+    restart: on-failure
+    depends_on:
+      - mysql
+    networks: 
+      - alta
+
+  mysql:
+    image: mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: 123ABC4d.
+      MYSQL_DATABASE: alta-store
+    ports: 
+      - 3306:3306
+    volumes: 
+      - alta-store-mysql-data:/var/lib/mysql
+    networks: 
+      - alta
+
+volumes: 
+  alta-store-mysql-data:
+
+networks: 
+  alta:
+    driver: bridge
+
+  # alta-store-app:
+  #   build: 
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports: 
+  #     - "8080:8080"
+  #   depends_on:
+  #     - mysql-development
 
 # version: "3.8"
 
