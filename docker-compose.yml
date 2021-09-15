@@ -1,50 +1,62 @@
-version: "3.8"
+version: '3.8'
 
 services: 
-  app:
-    container_name: full_app
-    build: .
-    ports: 
-      - 8080:8080
-    restart: on-failure
-    # working_dir: /app
-    volumes: 
-      # - ./:/app
-      - api:/usr/src/app/
-    # environment: 
-    #   MYSQL_HOST: localhost
-    #   MYSQL_USER: root
-    #   MYSQL_PASSWORD: 123ABCd4.
-    #   MYSQL_DB: alta-store
-    depends_on: 
-      - database-mysql
-    networks: 
-      - alta
 
-  database-mysql:
-    image: mysql:latest
-    container_name: full_db_mysql
-    ports: 
-      - 3306:3306
+  mysql-development:
+    image: mysql
     environment: 
-      MYSQL_ROOT_HOST: 127.0.0.1
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123ABC4d.
-      MYSQL_DATABASE: alta-store
       MYSQL_ROOT_PASSWORD: 123ABC4d.
-    volumes: 
-      - alta-mysql-data:/var/lib/mysql
-    networks: 
-      - alta
+      MYSQL_DATABASE: alta-store
+    ports: 
+      - "3306:3306"
 
-volumes: 
-  api:
-  alta-mysql-data:
+# version: "3.8"
 
-# Networks to be created to facilitate communication between containers
-networks:
-  alta:
-    driver: bridge
+# services: 
+#   app:
+#     container_name: full_app
+#     build: .
+#     ports: 
+#       - 8080:8080
+#     restart: on-failure
+#     # working_dir: /app
+#     volumes: 
+#       # - ./:/app
+#       - api:/usr/src/app/
+#     # environment: 
+#     #   MYSQL_HOST: localhost
+#     #   MYSQL_USER: root
+#     #   MYSQL_PASSWORD: 123ABCd4.
+#     #   MYSQL_DB: alta-store
+#     depends_on: 
+#       - database-mysql
+#     networks: 
+#       - alta
+
+#   database-mysql:
+#     image: mysql:latest
+#     container_name: full_db_mysql
+#     ports: 
+#       - 3306:3306
+#     environment: 
+#       MYSQL_ROOT_HOST: 127.0.0.1
+#       MYSQL_USER: root
+#       MYSQL_PASSWORD: 123ABC4d.
+#       MYSQL_DATABASE: alta-store
+#       MYSQL_ROOT_PASSWORD: 123ABC4d.
+#     volumes: 
+#       - alta-mysql-data:/var/lib/mysql
+#     networks: 
+#       - alta
+
+# volumes: 
+#   api:
+#   alta-mysql-data:
+
+# # Networks to be created to facilitate communication between containers
+# networks:
+#   alta:
+#     driver: bridge
 
 # version: "3.8"
 
