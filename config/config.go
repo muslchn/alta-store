@@ -2,7 +2,6 @@ package config
 
 import (
 	"alta-store/model"
-	"alta-store/secret"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -13,11 +12,11 @@ var DB *gorm.DB
 
 func InitDB() {
 	config := map[string]string{
-		"DB_Username": secret.DB_USERNAME,
-		"DB_Password": secret.DB_PASSWORD,
-		"DB_Port":     secret.DB_PORT,
-		"DB_Host":     secret.DB_HOST,
-		"DB_Name":     secret.DB_NAME,
+		"DB_Username": "root",
+		"DB_Password": "123ABC4d.",
+		"DB_Port":     "3306",
+		"DB_Host":     "localhost",
+		"DB_Name":     "alta-store",
 	}
 
 	connectionString := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
