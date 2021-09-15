@@ -7,37 +7,42 @@ services:
     ports: 
       - 8080:8080
     restart: on-failure
+    # working_dir: /app
     volumes: 
+      # - ./:/app
       - api:/usr/src/app/
-    environment: 
-      MYSQL_HOST: localhost
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 123ABCd4.
-      MYSQL_DB: alta-store
+    # environment: 
+    #   MYSQL_HOST: localhost
+    #   MYSQL_USER: root
+    #   MYSQL_PASSWORD: 123ABCd4.
+    #   MYSQL_DB: alta-store
     depends_on: 
-      - mysql
+      - database-mysql
     networks: 
       - alta
 
-  mysql:
+  database-mysql:
     image: mysql:latest
     container_name: full_db_mysql
     ports: 
-      - 3366:3306
+      - 3306:3306
     environment: 
-      MYSQL_ROOT_PASSWORD: 123ABCd4.
+      MYSQL_ROOT_HOST: 127.0.0.1
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123ABC4d.
       MYSQL_DATABASE: alta-store
+      MYSQL_ROOT_PASSWORD: 123ABC4d.
     volumes: 
-      - database_mysql:/var/lib/mysql
+      - alta-mysql-data:/var/lib/mysql
     networks: 
       - alta
 
 volumes: 
   api:
-  database_mysql:
+  alta-mysql-data:
 
 # Networks to be created to facilitate communication between containers
-networks: 
+networks:
   alta:
     driver: bridge
 

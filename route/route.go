@@ -12,11 +12,11 @@ func New() *echo.Echo {
 	e := echo.New()
 
 	// Welcome
-	e.GET("", controller.WelcomeController)
+	e.GET("/", controller.WelcomeController)
 	e.GET("/welcome", controller.WelcomeController)
 
 	// Products
-	e.GET("/products", controller.GetProductsController)
+	e.GET("/products/", controller.GetProductsController)
 	e.GET("/products", controller.GetProductsByCategoryController)
 
 	// Category
