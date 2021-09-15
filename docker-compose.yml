@@ -10,6 +10,13 @@ services:
     ports: 
       - "3306:3306"
 
+  alta-store-app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "8080:8080"
+
 # version: "3.8"
 
 # services: 
