@@ -20,7 +20,7 @@ COPY . .
 RUN go build -o main
 
 # Start 2 (Reduce Size Without Golang Image)
-FROM alpine:latest
+FROM alpine
 WORKDIR /root/
 COPY --from=builder /alta-store/main .
 EXPOSE 8080

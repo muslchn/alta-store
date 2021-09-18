@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services: 
 
@@ -6,7 +6,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: muslchn/alta-store
+    image: muslchn/alta-store:latest
     ports: 
       - 8080:8080
     # working_dir: /alta-store
@@ -20,6 +20,7 @@ services:
     restart: on-failure
     depends_on:
       - mysql
+        # condition: service_healthy
     networks: 
       - alta
 
@@ -37,19 +38,26 @@ services:
     restart: always
     volumes: 
       - alta-store-mysql-data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      timeout: 20s
-      retries: 10
+      # - alta-store-mysql:/etc/mysql/conf.d
+    # healthcheck:
+    #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+    #     timeout: 20s
+    #     retries: 10
     networks: 
       - alta
 
 volumes: 
   alta-store-mysql-data:
+  # alta-store-mysql:
 
 networks: 
   alta:
     driver: bridge
+
+# networks: 
+#   default:
+#     external: 
+#       name: alta-network
 
   # alta-store-app:
   #   build: 
