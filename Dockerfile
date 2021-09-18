@@ -8,7 +8,7 @@
 # CMD ["/alta-store/main"]
 
 # Stage 1 (Build Golang Project)
-FROM golang:alpine as builder
+FROM golang:1.17.1-alpine3.14 as builder
 ENV GO111MODULE=on
 RUN mkdir /alta-store
 ADD . /alta-store

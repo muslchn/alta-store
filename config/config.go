@@ -15,7 +15,7 @@ func InitDB() {
 		"DB_Username": "root",
 		"DB_Password": "123ABC4d.",
 		"DB_Port":     "3308",
-		"DB_Host":     "alta-store_mysql_1",
+		"DB_Host":     "mysql_server",
 		"DB_Name":     "alta-store",
 	}
 
