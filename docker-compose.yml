@@ -25,8 +25,8 @@ services:
 
   mysql:
     image: mysql
-    cap_add: 
-      - SYS_NICE  # CAP_SYS_NICE
+    # cap_add: 
+    #   - SYS_NICE  # CAP_SYS_NICE
     environment: 
       MYSQL_ROOT_PASSWORD: 123ABC4d.
       MYSQL_DATABASE: alta-store
@@ -35,6 +35,10 @@ services:
     restart: always
     volumes: 
       - alta-store-mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
     networks: 
       - alta
 
