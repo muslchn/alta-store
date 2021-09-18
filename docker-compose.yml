@@ -30,6 +30,7 @@ services:
       MYSQL_DATABASE: alta-store
     ports: 
       - 3308:3306
+    restart: always
     volumes: 
       - alta-store-mysql-data:/var/lib/mysql
     networks: 
