@@ -32,8 +32,8 @@ services:
       MYSQL_DATABASE: alta-store
     ports: 
       - 3308:3306
-    security_opt: 
-      - seccomp:unconfined
+    # security_opt: 
+    #   - seccomp:unconfined
     restart: always
     volumes: 
       - alta-store-mysql-data:/var/lib/mysql
