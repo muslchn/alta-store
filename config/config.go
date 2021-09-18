@@ -14,7 +14,7 @@ func InitDB() {
 	config := map[string]string{
 		"DB_Username": "root",
 		"DB_Password": "123ABC4d.",
-		"DB_Port":     "3306",
+		"DB_Port":     "3308",
 		"DB_Host":     "alta-store_mysql_1",
 		"DB_Name":     "alta-store",
 	}
