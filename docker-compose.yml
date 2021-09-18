@@ -25,6 +25,8 @@ services:
 
   mysql:
     image: mysql
+    cap_add: 
+      - SYS_NICE  # CAP_SYS_NICE
     environment: 
       MYSQL_ROOT_PASSWORD: 123ABC4d.
       MYSQL_DATABASE: alta-store
