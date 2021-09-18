@@ -6,7 +6,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: muslchn/alta-store:latest
+    image: muslchn/alta-store
     ports: 
       - 8080:8080
     # working_dir: /alta-store
