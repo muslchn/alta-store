@@ -1,7 +1,7 @@
 package config
 
 import (
-	model "alta-store/models"
+	"alta-store/models"
 	"fmt"
 
 	"gorm.io/driver/mysql"
@@ -15,7 +15,7 @@ func InitDB() {
 		"DB_Username": "root",
 		"DB_Password": "123ABC4d.",
 		"DB_Port":     "3308",
-		"DB_Host":     "alta-store_mysql_1",
+		"DB_Host":     "localhost",
 		"DB_Name":     "alta-store",
 	}
 
@@ -37,9 +37,9 @@ func InitDB() {
 }
 
 func InitMigrate() {
-	DB.AutoMigrate(&model.Cart{})
-	DB.AutoMigrate(&model.Category{})
-	DB.AutoMigrate(&model.Customer{})
-	DB.AutoMigrate(&model.Payment{})
-	DB.AutoMigrate(&model.Product{})
+	DB.AutoMigrate(&models.Cart{})
+	DB.AutoMigrate(&models.Category{})
+	DB.AutoMigrate(&models.Customer{})
+	DB.AutoMigrate(&models.Payment{})
+	DB.AutoMigrate(&models.Product{})
 }
