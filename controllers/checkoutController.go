@@ -3,7 +3,7 @@ package controller
 import (
 	"alta-store/lib/database"
 	"alta-store/middleware"
-	"alta-store/model"
+	"alta-store/models"
 	"net/http"
 	"strconv"
 
@@ -27,7 +27,7 @@ func CheckoutController(c echo.Context) error {
 
 	database.ChangeCartStatus(uint(cartId))
 
-	return c.JSON(http.StatusCreated, model.Response{
+	return c.JSON(http.StatusCreated, models.Response{
 		Status:  "ok",
 		Message: "success checkout",
 		Data:    checkout,
@@ -42,7 +42,7 @@ func GetCheckoutController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get checkout(s)",
 		Data:    checkout,
@@ -59,13 +59,13 @@ func GetCheckoutByIdController(c echo.Context) error {
 	}
 
 	if checkout == nil {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "checkout data not found",
 		})
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get checkout data",
 		Data:    checkout,

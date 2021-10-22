@@ -2,12 +2,12 @@ package database
 
 import (
 	"alta-store/config"
-	"alta-store/model"
+	"alta-store/models"
 )
 
 func GetTotal(cartId uint) (uint, uint, error) {
 	var (
-		cartItems  []model.CartItem
+		cartItems  []models.CartItem
 		totalItem  uint
 		totalPrice uint
 	)
@@ -33,7 +33,7 @@ func CreateCheckout(customerId, cartId, totalItem, totalPrice uint) (interface{}
 
 	// customerId := cart.CustomerID
 
-	checkout := model.Checkout{
+	checkout := models.Checkout{
 		CustomerID: customerId,
 		CartID:     cartId,
 		TotalItem:  totalItem,
@@ -49,7 +49,7 @@ func CreateCheckout(customerId, cartId, totalItem, totalPrice uint) (interface{}
 }
 
 func GetCheckout(customerId uint) (interface{}, error) {
-	var checkout []model.Checkout
+	var checkout []models.Checkout
 
 	if err := config.DB.Where("customer_id = ? AND paid = false", customerId).Find(&checkout).Error; err != nil {
 		return nil, err
@@ -59,7 +59,7 @@ func GetCheckout(customerId uint) (interface{}, error) {
 }
 
 func GetCheckoutById(id, customerId uint) (interface{}, error) {
-	var checkout model.Checkout
+	var checkout models.Checkout
 
 	query := config.DB.Where("id = ? AND customer_id = ?", id, customerId).First(&checkout)
 
@@ -75,7 +75,7 @@ func GetCheckoutById(id, customerId uint) (interface{}, error) {
 }
 
 func EditCheckoutStatus(id uint) error {
-	var checkout = model.Checkout{
+	var checkout = models.Checkout{
 		Paid: true,
 	}
 

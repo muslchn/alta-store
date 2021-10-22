@@ -2,13 +2,13 @@ package database
 
 import (
 	"alta-store/config"
-	"alta-store/model"
+	"alta-store/models"
 )
 
 func Payment(customerId, checkoutId uint) (interface{}, error) {
 	var (
-		checkout model.Checkout
-		payment  model.Payment
+		checkout models.Checkout
+		payment  models.Payment
 		paid     uint
 	)
 
@@ -24,7 +24,7 @@ func Payment(customerId, checkoutId uint) (interface{}, error) {
 
 	paid = checkout.TotalPrice
 
-	payment = model.Payment{
+	payment = models.Payment{
 		CustomerID: customerId,
 		CheckoutID: checkoutId,
 		Paid:       paid,
@@ -40,7 +40,7 @@ func Payment(customerId, checkoutId uint) (interface{}, error) {
 }
 
 func LastPayment(customerId uint) (interface{}, error) {
-	var lastPayment model.Payment
+	var lastPayment models.Payment
 
 	if err := config.DB.Where("customer_id = ?", customerId).Last(&lastPayment).Error; err != nil {
 		return nil, err
@@ -50,7 +50,7 @@ func LastPayment(customerId uint) (interface{}, error) {
 }
 
 func PaymentHistory(customerId uint) (interface{}, error) {
-	var paymentHistory []model.Payment
+	var paymentHistory []models.Payment
 
 	if err := config.DB.Where("customer_id = ?", customerId).Find(&paymentHistory).Error; err != nil {
 		return nil, err
@@ -60,7 +60,7 @@ func PaymentHistory(customerId uint) (interface{}, error) {
 }
 
 func PaymentById(id, customerId uint) (interface{}, error) {
-	var paymentById model.Payment
+	var paymentById models.Payment
 
 	query := config.DB.Where("id = ? AND customer_id = ?", id, customerId).First(&paymentById)
 

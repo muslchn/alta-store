@@ -2,11 +2,11 @@ package database
 
 import (
 	"alta-store/config"
-	"alta-store/model"
+	"alta-store/models"
 )
 
 func GetProducts() (interface{}, error) {
-	var products []model.Product
+	var products []models.Product
 
 	if err := config.DB.Find(&products).Error; err != nil {
 		return nil, err
@@ -16,7 +16,7 @@ func GetProducts() (interface{}, error) {
 }
 
 func GetProductsByCategory(categoryId uint) (interface{}, error) {
-	var products []model.Product
+	var products []models.Product
 
 	query := config.DB.Where("category_id  = ?", categoryId).Find(&products)
 
@@ -32,7 +32,7 @@ func GetProductsByCategory(categoryId uint) (interface{}, error) {
 }
 
 func GetProductById(id uint) (bool, uint, uint, error) {
-	var product model.Product
+	var product models.Product
 
 	query := config.DB.Where("id = ?", id).Find(&product)
 
@@ -48,7 +48,7 @@ func GetProductById(id uint) (bool, uint, uint, error) {
 }
 
 func UpdateProductStockById(id, stock, qty uint) {
-	product := model.Product{
+	product := models.Product{
 		Stock: stock - qty,
 	}
 
@@ -57,7 +57,7 @@ func UpdateProductStockById(id, stock, qty uint) {
 
 func ReturnStock(productId, qty uint) error {
 	var (
-		product model.Product
+		product models.Product
 		stock   uint
 	)
 
@@ -69,7 +69,7 @@ func ReturnStock(productId, qty uint) error {
 
 	if query.RowsAffected != 0 {
 		stock = product.Stock
-		returnStock := model.Product{
+		returnStock := models.Product{
 			Stock: stock + qty,
 		}
 

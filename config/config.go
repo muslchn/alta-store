@@ -1,7 +1,7 @@
 package config
 
 import (
-	"alta-store/model"
+	model "alta-store/models"
 	"fmt"
 
 	"gorm.io/driver/mysql"

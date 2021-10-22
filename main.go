@@ -3,7 +3,7 @@ package main
 import (
 	"alta-store/config"
 	"alta-store/lib/database"
-	routes "alta-store/route"
+	"alta-store/routes"
 )
 
 func main() {

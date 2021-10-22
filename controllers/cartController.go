@@ -3,7 +3,7 @@ package controller
 import (
 	"alta-store/lib/database"
 	"alta-store/middleware"
-	"alta-store/model"
+	"alta-store/models"
 	"net/http"
 	"strconv"
 
@@ -22,23 +22,23 @@ func AddCartItemController(c echo.Context) error {
 	}
 
 	if !validation[0] {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "product not found",
 		})
 	} else if !validation[1] {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "product out of stock",
 		})
 	} else if !validation[2] {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "product is less than you want to take",
 		})
 	}
 
-	return c.JSON(http.StatusCreated, model.Response{
+	return c.JSON(http.StatusCreated, models.Response{
 		Status:  "ok",
 		Message: "success add item to cart",
 		Data:    cartItem,
@@ -53,7 +53,7 @@ func GetCartController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get cart",
 		Data:    cart,
@@ -70,7 +70,7 @@ func DeleteCartItemController(c echo.Context) error {
 	}
 
 	if !validate {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "item not found",
 		})
@@ -79,7 +79,7 @@ func DeleteCartItemController(c echo.Context) error {
 	database.ReturnStock(validateItem["productId"], validateItem["qty"])
 	database.DeleteCartItem(uint(cartItemId))
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "item removed",
 	})

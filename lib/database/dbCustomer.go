@@ -3,10 +3,10 @@ package database
 import (
 	"alta-store/config"
 	"alta-store/middleware"
-	"alta-store/model"
+	"alta-store/models"
 )
 
-func Register(getCustomer *model.Customer) (interface{}, error) {
+func Register(getCustomer *models.Customer) (interface{}, error) {
 
 	customer := *getCustomer
 
@@ -18,7 +18,7 @@ func Register(getCustomer *model.Customer) (interface{}, error) {
 }
 
 func GetDetailCustomer(id int) (interface{}, error) {
-	var customer model.Customer
+	var customer models.Customer
 
 	if err := config.DB.Find(&customer, "id = ?", id).Error; err != nil {
 		return nil, err
@@ -27,7 +27,7 @@ func GetDetailCustomer(id int) (interface{}, error) {
 }
 
 func Login(email, password string) (interface{}, string, string, error) {
-	var customer model.Customer
+	var customer models.Customer
 
 	if err := config.DB.Where("email = ? AND password = ?", email, password).First(&customer).Error; err != nil {
 		return nil, "", "", err

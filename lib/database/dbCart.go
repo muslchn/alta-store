@@ -2,12 +2,12 @@ package database
 
 import (
 	"alta-store/config"
-	"alta-store/model"
+	"alta-store/models"
 	"strconv"
 )
 
 func GetCart(customerId uint) (interface{}, error) {
-	var cartItem []model.CartItem
+	var cartItem []models.CartItem
 	cartId, _ := CartCheck(customerId)
 
 	if err := config.DB.Where("cart_id = ?", cartId).Find(&cartItem).Error; err != nil {
@@ -18,7 +18,7 @@ func GetCart(customerId uint) (interface{}, error) {
 }
 
 func CartCheck(customerId uint) (uint, error) {
-	var cart model.Cart
+	var cart models.Cart
 
 	query := config.DB.Where("customer_id = ? AND checkout = false", customerId).Find(&cart)
 
@@ -27,7 +27,7 @@ func CartCheck(customerId uint) (uint, error) {
 	}
 
 	if query.RowsAffected == 0 {
-		cart = model.Cart{
+		cart = models.Cart{
 			CustomerID: customerId,
 			Checkout:   false,
 		}
@@ -75,7 +75,7 @@ func AddCartItem(item map[string]string, customerId uint) ([]bool, interface{}, 
 		return productRes, nil, nil
 	}
 
-	cartItem := model.CartItem{
+	cartItem := models.CartItem{
 		CartID:    cartId,
 		ProductID: uint(productId),
 		Price:     productPrice,
@@ -93,7 +93,7 @@ func AddCartItem(item map[string]string, customerId uint) ([]bool, interface{}, 
 }
 
 func ValidateCartItem(cartItemId, customerId uint) (bool, map[string]uint, error) {
-	var cartItem model.CartItem
+	var cartItem models.CartItem
 
 	cartId, _ := CartCheck(customerId)
 	query := config.DB.Where("id = ? AND cart_id = ?", cartItemId, cartId).Find(&cartItem)
@@ -114,7 +114,7 @@ func ValidateCartItem(cartItemId, customerId uint) (bool, map[string]uint, error
 }
 
 func DeleteCartItem(id uint) (interface{}, error) {
-	var cartItem model.CartItem
+	var cartItem models.CartItem
 
 	if err := config.DB.Where("id = ?", id).Delete(&cartItem).Error; err != nil {
 		return nil, err
@@ -124,7 +124,7 @@ func DeleteCartItem(id uint) (interface{}, error) {
 }
 
 func ChangeCartStatus(id uint) error {
-	cart := model.Cart{
+	cart := models.Cart{
 		Checkout: true,
 	}
 

@@ -2,17 +2,17 @@ package database
 
 import (
 	"alta-store/config"
-	"alta-store/model"
+	"alta-store/models"
 )
 
 func InitData() {
 	var (
-		category []model.Category
-		product  []model.Product
+		category []models.Category
+		product  []models.Product
 	)
 
 	if query := config.DB.Find(&category); query.RowsAffected == 0 {
-		category = []model.Category{
+		category = []models.Category{
 			{Name: "Buku"},
 			{Name: "Handphone"},
 			{Name: "Laptop"},
@@ -22,7 +22,7 @@ func InitData() {
 	}
 
 	if query := config.DB.Find(&product); query.RowsAffected == 0 {
-		product = []model.Product{
+		product = []models.Product{
 			{
 				CategoryID:  1,
 				Name:        "Sapiens",

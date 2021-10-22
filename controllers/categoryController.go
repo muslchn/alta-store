@@ -2,7 +2,7 @@ package controller
 
 import (
 	"alta-store/lib/database"
-	"alta-store/model"
+	"alta-store/models"
 	"net/http"
 	"strconv"
 
@@ -16,7 +16,7 @@ func GetCategoryController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get categories",
 		Data:    category,
@@ -32,13 +32,13 @@ func GetCategoryByIdController(c echo.Context) error {
 	}
 
 	if category == nil {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "category not found",
 		})
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get category",
 		Data:    category,

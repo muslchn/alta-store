@@ -3,7 +3,7 @@ package controller
 import (
 	"alta-store/lib/database"
 	"alta-store/middleware"
-	"alta-store/model"
+	"alta-store/models"
 	"net/http"
 	"strconv"
 
@@ -20,13 +20,13 @@ func PaymentController(c echo.Context) error {
 	}
 
 	if payment == nil {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "checkout data not found",
 		})
 	}
 
-	return c.JSON(http.StatusCreated, model.Response{
+	return c.JSON(http.StatusCreated, models.Response{
 		Status:  "ok",
 		Message: "payment success",
 		Data:    payment,
@@ -41,7 +41,7 @@ func LastPaymentController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get last payment",
 		Data:    lastPayment,
@@ -56,7 +56,7 @@ func PaymentHistoryController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get payment history(s)",
 		Data:    paymentHistory,
@@ -73,13 +73,13 @@ func PaymentByIdController(c echo.Context) error {
 	}
 
 	if paymentById == nil {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "data not found",
 		})
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get payment history",
 		Data:    paymentById,

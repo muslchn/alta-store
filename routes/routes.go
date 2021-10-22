@@ -1,7 +1,7 @@
-package route
+package routes
 
 import (
-	"alta-store/controller"
+	controller "alta-store/controllers"
 	"alta-store/secret"
 
 	"github.com/labstack/echo/v4"

@@ -2,7 +2,7 @@ package controller
 
 import (
 	"alta-store/lib/database"
-	"alta-store/model"
+	"alta-store/models"
 	"net/http"
 	"strconv"
 
@@ -35,7 +35,7 @@ func RegisterController(c echo.Context) error {
 	// customer.PostalCode = postalCode
 
 	// binding data
-	var customer model.Customer
+	var customer models.Customer
 	c.Bind(&customer)
 	register, err := database.Register(&customer)
 
@@ -43,7 +43,7 @@ func RegisterController(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusCreated, model.Response{
+	return c.JSON(http.StatusCreated, models.Response{
 		Status:  "ok",
 		Message: "register succeed",
 		Data:    register,
@@ -66,7 +66,7 @@ func LoginController(c echo.Context) error {
 	}
 
 	if customer == nil {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "account not found or password incorrect",
 		})
@@ -79,7 +79,7 @@ func LoginController(c echo.Context) error {
 		token: token,
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: hello,
 		Data:    data,
@@ -95,13 +95,13 @@ func GetCustomerDetailController(c echo.Context) error {
 	}
 
 	if customer == nil {
-		return c.JSON(http.StatusBadRequest, model.Response{
+		return c.JSON(http.StatusBadRequest, models.Response{
 			Status:  "fail",
 			Message: "data not found",
 		})
 	}
 
-	return c.JSON(http.StatusOK, model.Response{
+	return c.JSON(http.StatusOK, models.Response{
 		Status:  "ok",
 		Message: "success get customer detail",
 		Data:    customer,
